@@ -2,14 +2,19 @@
   "name": "app",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
     "test:http": "hurl --variable host=http://localhost:3000 --test ./tests/http",
-    "db:pull": "bun --bun drizzle-kit pull"
+    "db:info": "echo 'db:* for database related actions'",
+    "db:generate": "bun --bun drizzle-kit generate",
+    "db:pull": "bun --bun drizzle-kit pull",
+    "db:migrate": "bun run src/db/migrate.ts",
+    "db:seed": "bun run src/db/seed.ts",
+    "db:clean": "rm -rf data/app.db drizzle/"
   },
   "dependencies": {
     "better-sqlite3": "nounder/bun-better-sqlite3",
     "drizzle-orm": "^0.45.1",
+    "drizzle-zod": "^0.8.3",
     "elysia": "latest",
     "zod": "^4.3.6"
   },

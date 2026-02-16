@@ -1,8 +1,9 @@
 import { Elysia } from "elysia";
-import { healthRoutes } from "@/routes/health";
+import { healthRoutes, waitlistRoutes } from "@/routes";
 
 const app = new Elysia()
   .use(healthRoutes)
+  .use(waitlistRoutes)
   .get("/", () => "Hello Elysia")
   .listen(3000);
 
