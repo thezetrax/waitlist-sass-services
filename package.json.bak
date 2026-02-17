@@ -15,7 +15,6 @@
     "@loglayer/transport-simple-pretty-terminal": "^3.0.2",
     "better-sqlite3": "nounder/bun-better-sqlite3",
     "drizzle-orm": "^0.45.1",
-    "drizzle-typebox": "^0.3.3",
     "drizzle-zod": "^0.8.3",
     "elysia": "latest",
     "loglayer": "^9.1.0",
@@ -29,8 +28,5 @@
   "module": "src/index.js",
   "trustedDependencies": [
     "@orangeopensource/hurl"
-  ],
-  "overrides": {
-    "@sinclair/typebox": ">= 0.34.0 < 1"
-  }
+  ]
 }
