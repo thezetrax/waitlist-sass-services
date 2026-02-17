@@ -1,6 +1,8 @@
 import { db } from "@/db";
 import * as schema from "@/db/schema";
+import { DBPlugin } from "@/plugins/db";
 import { Elysia } from "elysia";
+import { App } from "..";
 
 const generateReferralCode = () => {
   const characters =
@@ -12,6 +14,7 @@ const generateReferralCode = () => {
   return code;
 };
 
-export const waitlistRoutes = new Elysia({
-  prefix: "/waitlist",
-}).get("/", () => db.select().from(schema.waitlist).all());
+export const waitlistRoutes = (server: App) =>
+  server.group("/waitlist", (app) =>
+    app.get("/", ({ db }) => db.select().from(schema.waitlist).all()),
+  );

@@ -1,7 +1,13 @@
 import { Elysia } from "elysia";
 import { healthRoutes, waitlistRoutes } from "@/routes";
+import { DBPlugin } from "@/plugins/db";
+import { db } from "@/db";
 
-const app = new Elysia()
+// Initialize the Elysia app
+const app = new Elysia().use(DBPlugin(db));
+export type App = typeof app;
+
+app
   .use(healthRoutes)
   .use(waitlistRoutes)
   .get("/", () => "Hello Elysia")
