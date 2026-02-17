@@ -12,10 +12,12 @@
     "db:clean": "rm -rf data/app.db drizzle/"
   },
   "dependencies": {
+    "@loglayer/transport-simple-pretty-terminal": "^3.0.2",
     "better-sqlite3": "nounder/bun-better-sqlite3",
     "drizzle-orm": "^0.45.1",
     "drizzle-zod": "^0.8.3",
     "elysia": "latest",
+    "loglayer": "^9.1.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
