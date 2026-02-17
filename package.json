@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@loglayer/transport-simple-pretty-terminal": "^3.0.2",
+    "better-auth": "^1.4.18",
     "better-sqlite3": "nounder/bun-better-sqlite3",
     "drizzle-orm": "^0.45.1",
     "drizzle-typebox": "^0.3.3",

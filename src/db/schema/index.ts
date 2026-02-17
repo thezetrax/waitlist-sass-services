@@ -1,4 +1,4 @@
-import { waitlist, _createWaitlist } from "./waitlist";
+import { waitlist, createWaitlist } from "./waitlist";
 
 const table = {
   waitlist,
@@ -6,4 +6,4 @@ const table = {
 type Table = typeof table;
 
 export { table };
-export type { _createWaitlist, Table };
+export type { createWaitlist, Table };
