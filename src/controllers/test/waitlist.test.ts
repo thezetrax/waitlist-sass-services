@@ -10,12 +10,6 @@ describe("waitlist controller", () => {
       log: logger,
     });
 
-    expect(result.length).toBe(waitlistSeedData.length);
-    for (const [i, entry] of waitlistSeedData.entries()) {
-      const resultEntry = result[i];
-      expect(entry.name).toBe(resultEntry.name);
-      expect(entry.email).toBe(resultEntry.email);
-      expect(entry.referralCode).toBe(resultEntry.referralCode);
-    }
+    expect(result).toMatchObject(waitlistSeedData);
   });
 });

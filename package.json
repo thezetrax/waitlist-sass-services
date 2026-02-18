@@ -2,6 +2,7 @@
   "name": "app",
   "version": "1.0.50",
   "scripts": {
+    "build": "bun build --compile ./src/index.ts --outfile ./dist/server",
     "dev": "bun run --watch src/index.ts",
     "test:http": "hurl --variable host=http://localhost:3000 --test ./tests/http",
     "db:info": "echo 'db:* for database related actions'",
