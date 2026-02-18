@@ -1,5 +1,6 @@
-import { db } from "@/db";
+import { db, DBInstance } from "@/db";
 import { createWaitlist, table } from "@/db/schema";
+import { seedDB } from "@/lib/db";
 
 type Waitlist = typeof createWaitlist.static;
 const waitlistSeedData: Waitlist[] = [
@@ -10,12 +11,6 @@ const waitlistSeedData: Waitlist[] = [
   },
 ];
 
-async function seed() {
-  console.log("Seeding waitlist data...");
-  await db.insert(table.waitlist).values(waitlistSeedData);
-  console.log("Waitlist data seeded successfully!");
-}
-
 console.log("Seeding...");
-await seed();
+await seedDB(db, waitlistSeedData);
 console.log("Seeding completed!");

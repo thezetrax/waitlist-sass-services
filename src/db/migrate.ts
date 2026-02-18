@@ -1,10 +1,6 @@
-import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { db } from "@/db";
+import { runMigration } from "@/lib/db";
 
 console.log("Starting migration");
-
-migrate(db, {
-  migrationsFolder: "./drizzle",
-});
-
+runMigration(db);
 console.log("Migration completed");

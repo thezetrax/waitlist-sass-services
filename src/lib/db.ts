@@ -14,8 +14,10 @@ import {
   BuildSchema,
 } from "drizzle-typebox";
 
-import { table } from "@/db/schema";
 import type { Table } from "drizzle-orm";
+import { migrate } from "drizzle-orm/bun-sqlite/migrator";
+import { DBInstance } from "@/db";
+import { table } from "@/db/schema";
 
 type Spread<
   T extends TObject | Table,
@@ -95,3 +97,15 @@ export const spreads = <
 
   return newSchema as any;
 };
+
+export const runMigration = async (instance: DBInstance) => {
+  return migrate(instance, {
+    migrationsFolder: "./drizzle",
+  });
+};
+
+export async function seedDB(instance: DBInstance, data: any[]) {
+  console.log("Seeding waitlist data...");
+  await instance.insert(table.waitlist).values(data);
+  console.log("Waitlist data seeded successfully!");
+}
