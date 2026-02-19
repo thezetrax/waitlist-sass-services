@@ -11,7 +11,7 @@ if (!existsSync(env.DB_DIR)) {
 }
 
 export default defineConfig({
-  schema: "./src/db/schema",
+  schema: ["./src/db/schema/schema.ts", "./src/db/schema/auth.ts"],
   dialect: "sqlite",
   dbCredentials: {
     url: join(env.DB_DIR, env.DB_FILENAME),

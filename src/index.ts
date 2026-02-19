@@ -1,12 +1,11 @@
 import { db } from "@/db";
+import { auth, AuthOpenAPI } from "@/lib/auth";
 import { logger } from "@/lib/logger";
 import { DBPlugin } from "@/plugins/db";
 import { LogPlugin } from "@/plugins/log";
 import { healthRoutes, waitlistRoutes } from "@/routes";
-import { Elysia, InferContext } from "elysia";
-import { betterAuthView } from "@/routes";
-import { auth, AuthOpenAPI } from "@/lib/auth";
 import { openapi } from "@elysiajs/openapi";
+import { Elysia, InferContext } from "elysia";
 
 // Initialize the Elysia app
 const app = new Elysia()
