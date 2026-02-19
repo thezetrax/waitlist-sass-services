@@ -1,3 +1,39 @@
+CREATE TABLE `waitlist` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`name` text NOT NULL,
+	`email` text NOT NULL,
+	`referralCode` text NOT NULL,
+	`referredBy` text,
+	`releaseDate` integer,
+	`createdAt` integer
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `waitlist_email_unique` ON `waitlist` (`email`);--> statement-breakpoint
+CREATE UNIQUE INDEX `waitlist_referralCode_unique` ON `waitlist` (`referralCode`);--> statement-breakpoint
+CREATE UNIQUE INDEX `email_idx` ON `waitlist` (`email`);--> statement-breakpoint
+CREATE TABLE `waitlist_announcement` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`waitlist_id` integer,
+	`title` text NOT NULL,
+	`content` text NOT NULL,
+	`created_at` integer,
+	`user_id` integer,
+	`published` integer DEFAULT false NOT NULL,
+	FOREIGN KEY (`waitlist_id`) REFERENCES `waitlist`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
+CREATE TABLE `waitlist_signup` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`waitlist_id` integer,
+	`status` text DEFAULT 'waiting' NOT NULL,
+	`referral_code` text NOT NULL,
+	`referred_by` integer,
+	`joined_at` integer,
+	FOREIGN KEY (`waitlist_id`) REFERENCES `waitlist`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`referred_by`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
 CREATE TABLE `account` (
 	`id` text PRIMARY KEY NOT NULL,
 	`account_id` text NOT NULL,
@@ -50,17 +86,4 @@ CREATE TABLE `verification` (
 	`updated_at` integer NOT NULL
 );
 --> statement-breakpoint
-CREATE INDEX `verification_identifier_idx` ON `verification` (`identifier`);--> statement-breakpoint
-CREATE TABLE `waitlist` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`name` text NOT NULL,
-	`email` text NOT NULL,
-	`referralCode` text NOT NULL,
-	`referredBy` text,
-	`releaseDate` integer,
-	`createdAt` integer
-);
---> statement-breakpoint
-CREATE UNIQUE INDEX `waitlist_email_unique` ON `waitlist` (`email`);--> statement-breakpoint
-CREATE UNIQUE INDEX `waitlist_referralCode_unique` ON `waitlist` (`referralCode`);--> statement-breakpoint
-CREATE UNIQUE INDEX `email_idx` ON `waitlist` (`email`);
+CREATE INDEX `verification_identifier_idx` ON `verification` (`identifier`);
