@@ -1,0 +1,40 @@
+%% This is an ER diagram for the Waitlist API
+
+erDiagram
+    WAITLIST {
+        string id PK
+        string name
+        string description
+        date   release_date
+        date   created_at
+        string status "enum: waiting/released/cancelled"
+    }
+    USER {
+        string id PK
+        string name
+        string email
+        date   created_at
+    }
+    WAITLIST_SIGNUP {
+        string id PK
+        string waitlist_id FK
+        string user_id FK
+        string status "enum: waiting/invited/rejected"
+        string referral_code
+        string referred_by
+        date   joined_at
+    }
+    WAITLIST_ANNOUNCEMENT {
+        string id PK
+        string waitlist_id FK
+        string title
+        string content
+        date   created_at
+        string author_id FK
+        string type
+        boolean published
+    }
+
+    WAITLIST ||--o{ WAITLIST_SIGNUP : "has signups"
+    WAITLIST ||--o{ WAITLIST_ANNOUNCEMENT : "has updates"
+    USER ||--o{ WAITLIST_SIGNUP : "joins waitlists"
