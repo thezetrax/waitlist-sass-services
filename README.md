@@ -1,30 +1,14 @@
-# Elysia with Bun runtime
+# Readme
 
-## Getting Started
-To get started with this template, simply paste this command into your terminal:
-```bash
-bun create elysia ./elysia-example
-```
+## Introduction
 
-## Development
-To start the development server run:
-```bash
-bun run dev
-```
+This is a waitlist service simple SASS project api. It's a deployable service 
+that allows users to signup, invite others, and reject waitlist entries. Users
+can generate a referral code, with a link, and share them with others. Doing so
+will increase their chances of being added to the waitlist.
 
-Open http://localhost:3000/ with your browser to see the result.
-
-## Notes
-
-1. Database pull
-
-```
-bun run db:pull
-```
-
-2. Drizzle requires a sqlite driver instead of using the bun runtime's sqlite driver.
-So I added [bun-better-sqlite3](https://github.com/nounder/bun-better-sqlite3) for imitating
-the sqlite driver, under the hood using the bun runtime's sqlite driver.
+This project will grow in scope and become a full-fledged waitlist service with
+a frontend SPA service, an analytics dashboard, and a admin panel.
 
 ## Feature List
 
@@ -63,3 +47,15 @@ Here’s a compact list of feature sets
 - [ ] Webhooks/zaps for downstream tools
 - [ ] Custom domain for the signup page
 - [ ] Simple A/B test (copy/CTA)
+
+## Notes
+
+1. Database pull
+
+```
+bun run db:pull
+```
+
+2. Drizzle requires a sqlite driver instead of using the bun runtime's sqlite driver.
+So I added [bun-better-sqlite3](https://github.com/nounder/bun-better-sqlite3) for imitating
+the sqlite driver, under the hood using the bun runtime's sqlite driver.
