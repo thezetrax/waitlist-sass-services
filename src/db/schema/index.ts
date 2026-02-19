@@ -1,11 +1,11 @@
-import { waitlist, createWaitlist } from "./waitlist";
+import { waitlist, createWaitlist, selectWaitlist } from "./waitlist";
 import * as auth from "./auth";
 
-const table = {
+const tables = {
   waitlist,
   ...auth,
 } as const;
-type Table = typeof table;
+type Table = typeof tables;
 
-export { table };
-export type { createWaitlist, Table };
+export { tables };
+export type { createWaitlist, selectWaitlist, Table };

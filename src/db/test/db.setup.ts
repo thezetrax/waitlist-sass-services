@@ -1,6 +1,6 @@
-import { createWaitlist, table } from "@/db/schema";
+import { createWaitlist, tables } from "@/db/schema";
 import { beforeAll } from "bun:test";
-import { db, waitlistSeedData } from "./db.mock";
+import { db, waitlistMockData } from "./db.mock";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { DBInstance } from "..";
 
@@ -12,13 +12,12 @@ export const runMigration = async (instance: DBInstance) => {
 };
 
 export async function seedDB(instance: DBInstance, data: any[]) {
-  await instance.insert(table.waitlist).values(data);
+  return await instance.insert(tables.waitlist).values(data).returning();
 }
 //#endregion
 
 async function setupDB() {
   await runMigration(db);
-  await seedDB(db, waitlistSeedData);
 }
 
 beforeAll(() => {

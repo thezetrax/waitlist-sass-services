@@ -1,5 +1,5 @@
 import { db, DBInstance } from "@/db";
-import { createWaitlist, table } from "@/db/schema";
+import { createWaitlist, tables } from "@/db/schema";
 import { seedDB } from "@/lib/db";
 
 type Waitlist = typeof createWaitlist.static;

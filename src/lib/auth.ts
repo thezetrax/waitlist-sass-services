@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { table } from "@/db/schema";
+import { tables } from "@/db/schema";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { openAPI } from "better-auth/plugins";
@@ -12,7 +12,7 @@ const auth = betterAuth({
   },
   database: drizzleAdapter(db, {
     provider: "sqlite",
-    schema: table,
+    schema: tables,
   }),
 });
 

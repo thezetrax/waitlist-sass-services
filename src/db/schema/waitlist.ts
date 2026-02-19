@@ -12,6 +12,7 @@ const waitlistSchema = table(
     email: sql.text().notNull().unique(),
     referralCode: sql.text().notNull().unique(),
     referredBy: sql.text(),
+    releaseDate: sql.integer({ mode: "timestamp" }),
     createdAt: sql
       .integer({
         mode: "timestamp",
@@ -22,11 +23,20 @@ const waitlistSchema = table(
 );
 
 const waitlistForInsert = spread(waitlistSchema, "insert");
-export const _createWaitlist = createInsertSchema(waitlistSchema);
+const waitlistForSelect = spread(waitlistSchema, "select");
+
 const createWaitlist = t.Object({
   name: waitlistForInsert.name,
   email: waitlistForInsert.email,
   referralCode: waitlistForInsert.referralCode,
+  releaseDate: waitlistForInsert.releaseDate,
+});
+const selectWaitlist = t.Object({
+  id: waitlistForSelect.id,
+  name: waitlistForSelect.name,
+  email: waitlistForSelect.email,
+  referralCode: waitlistForSelect.referralCode,
+  releaseDate: waitlistForSelect.releaseDate,
 });
 
-export { waitlistSchema as waitlist, createWaitlist };
+export { waitlistSchema as waitlist, createWaitlist, selectWaitlist };

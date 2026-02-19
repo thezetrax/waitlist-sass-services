@@ -57,6 +57,7 @@ CREATE TABLE `waitlist` (
 	`email` text NOT NULL,
 	`referralCode` text NOT NULL,
 	`referredBy` text,
+	`releaseDate` integer,
 	`createdAt` integer
 );
 --> statement-breakpoint

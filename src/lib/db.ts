@@ -17,7 +17,7 @@ import {
 import type { Table } from "drizzle-orm";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { DBInstance } from "@/db";
-import { table } from "@/db/schema";
+import { tables } from "@/db/schema";
 
 type Spread<
   T extends TObject | Table,
@@ -106,6 +106,6 @@ export const runMigration = async (instance: DBInstance) => {
 
 export async function seedDB(instance: DBInstance, data: any[]) {
   console.log("Seeding waitlist data...");
-  await instance.insert(table.waitlist).values(data);
+  await instance.insert(tables.waitlist).values(data);
   console.log("Waitlist data seeded successfully!");
 }

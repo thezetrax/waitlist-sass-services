@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "d6dad027-2a02-4254-9916-d6f1fb90d2d3",
+  "id": "c239f574-2b14-43da-b711-5979a9ad6052",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -384,6 +384,13 @@
         "referredBy": {
           "name": "referredBy",
           "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "releaseDate": {
+          "name": "releaseDate",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
