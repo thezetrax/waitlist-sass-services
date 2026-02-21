@@ -82,8 +82,10 @@ describe("waitlist controller", () => {
       );
     });
 
-    test.todo("should be able to set the waitlist release date", () => {});
-    test.todo("should be able to update the waitlist release date", () => {});
+    test.todo("should update a waitlist entry", () => {});
+    test.todo("should set the waitlist release date", () => {});
+    test.todo("should change waitlist status", () => {});
+    test.todo("should remove a waitlist entry by id", () => {});
 
     describe("role based", () => {
       test.todo(
