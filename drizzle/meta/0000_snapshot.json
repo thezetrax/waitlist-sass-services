@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "e0886a8c-d1bb-4ce0-a148-913fda554e0e",
+  "id": "5d2e1d71-246e-436c-93ef-a8c641fe6d66",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "waitlist": {
@@ -16,6 +16,13 @@
         },
         "name": {
           "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -55,6 +62,21 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "deletedAt": {
+          "name": "deletedAt",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'pending'"
         }
       },
       "indexes": {
@@ -69,13 +91,6 @@
           "name": "waitlist_referralCode_unique",
           "columns": [
             "referralCode"
-          ],
-          "isUnique": true
-        },
-        "email_idx": {
-          "name": "email_idx",
-          "columns": [
-            "email"
           ],
           "isUnique": true
         }

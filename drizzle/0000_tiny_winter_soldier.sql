@@ -1,16 +1,18 @@
 CREATE TABLE `waitlist` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL,
+	`description` text NOT NULL,
 	`email` text NOT NULL,
 	`referralCode` text NOT NULL,
 	`referredBy` text,
 	`releaseDate` integer,
-	`createdAt` integer
+	`createdAt` integer,
+	`deletedAt` integer,
+	`status` text DEFAULT 'pending' NOT NULL
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `waitlist_email_unique` ON `waitlist` (`email`);--> statement-breakpoint
 CREATE UNIQUE INDEX `waitlist_referralCode_unique` ON `waitlist` (`referralCode`);--> statement-breakpoint
-CREATE UNIQUE INDEX `email_idx` ON `waitlist` (`email`);--> statement-breakpoint
 CREATE TABLE `waitlist_announcement` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`waitlist_id` integer,

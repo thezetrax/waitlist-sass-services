@@ -14,12 +14,14 @@ const waitlistMockData: Waitlist[] = [
     email: "jhon.doe@example.com",
     referralCode: "ABC123",
     releaseDate: addDays(new Date(), 10),
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     name: "Abebe Biqila",
     email: "abebe@example.com",
     referralCode: "ABAB1234",
     releaseDate: addMonths(new Date(), 1),
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
 ];
 

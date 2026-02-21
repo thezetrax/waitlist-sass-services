@@ -5,8 +5,10 @@ import { t } from "elysia";
 const insertForWaitlist = spread(waitlist, "insert");
 const selectForWaitlist = spread(waitlist, "select");
 
+//#region Waitlist Entry Creation and Selection
 const createWaitlist = t.Object({
   name: insertForWaitlist.name,
+  description: insertForWaitlist.description,
   email: insertForWaitlist.email,
   referralCode: insertForWaitlist.referralCode,
   releaseDate: insertForWaitlist.releaseDate,
@@ -17,6 +19,16 @@ const selectWaitlist = t.Object({
   email: selectForWaitlist.email,
   referralCode: selectForWaitlist.referralCode,
   releaseDate: selectForWaitlist.releaseDate,
+  status: selectForWaitlist.status,
 });
+const updateWaitlist = t.Object({
+  id: selectForWaitlist.id,
+  name: insertForWaitlist.name,
+  email: insertForWaitlist.email,
+  referralCode: insertForWaitlist.referralCode,
+  releaseDate: insertForWaitlist.releaseDate,
+  status: insertForWaitlist.status,
+});
+//#endregion
 
-export { createWaitlist, selectWaitlist };
+export { createWaitlist, selectWaitlist, updateWaitlist };

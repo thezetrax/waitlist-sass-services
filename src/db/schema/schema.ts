@@ -8,6 +8,7 @@ const waitlist = table(
   {
     id: sql.integer().primaryKey({ autoIncrement: true }),
     name: sql.text().notNull(),
+    description: sql.text().notNull(),
     email: sql.text().notNull().unique(),
     referralCode: sql.text().notNull().unique(),
     referredBy: sql.text(),
@@ -17,8 +18,15 @@ const waitlist = table(
         mode: "timestamp",
       })
       .$defaultFn(() => new Date()),
+    deletedAt: sql.integer({
+      mode: "timestamp",
+    }),
+    status: sql
+      .text({ enum: ["pending", "released", "cancelled"] })
+      .notNull()
+      .default("pending"),
   },
-  (ctx) => [sql.uniqueIndex("email_idx").on(ctx.email)],
+  // (ctx) => [sql.uniqueIndex("email_idx").on(ctx.email)],
 );
 
 const waitlistSignup = table("waitlist_signup", {

@@ -8,6 +8,7 @@ const waitlistSeedData: Waitlist[] = [
     name: "John Doe",
     email: "jhon.doe@example.com",
     referralCode: "ABC123",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
 ];
 
