@@ -4,9 +4,11 @@ erDiagram
     WAITLIST {
         string id PK
         string name
+        string email
         string description
         date   release_date
         date   created_at
+        date   deleted_at
         string status "enum: waiting/released/cancelled"
     }
     USER {

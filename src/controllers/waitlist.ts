@@ -10,7 +10,13 @@
 
 import { eq } from "drizzle-orm";
 import { AppContext } from "..";
-import { tables, createWaitlist, selectWaitlist } from "@/db/schema";
+import {
+  tables,
+  createWaitlist,
+  selectWaitlist,
+  updateWaitlist,
+} from "@/db/schema";
+import { TODO } from "@/lib/todo";
 
 type Dependencies = Pick<AppContext, "log" | "db">;
 
@@ -31,19 +37,28 @@ const createWaitlistEntry = async (
 const fetchWaitlistEntry = async (
   { db }: Dependencies,
   id: typeof selectWaitlist.static.id,
-) => {
-  return await db
-    .select()
-    .from(tables.waitlist)
-    .where(eq(tables.waitlist.id, id));
-};
+) => await db.select().from(tables.waitlist).where(eq(tables.waitlist.id, id));
 
-// TODO: Implement generateWaitlistReferralCode
-const generateWaitlistReferralCode = () => {};
+const removeWaitlistEntry = async (
+  _: Dependencies,
+  _id: typeof selectWaitlist.static.id,
+) => TODO();
+
+const updateWaitlistEntry = async (
+  _: Dependencies,
+  _waitlist: typeof updateWaitlist.static,
+) => TODO();
+
+const generateWaitlistReferralCode = async () =>
+  TODO("generate a unique referral code");
 
 export {
   fetchAllWaitlistEntries,
   createWaitlistEntry,
   fetchWaitlistEntry,
-  Dependencies,
+  removeWaitlistEntry,
+  updateWaitlistEntry,
+  generateWaitlistReferralCode,
 };
+
+export type { Dependencies };

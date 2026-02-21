@@ -1,6 +1,6 @@
 import { createWaitlist, tables } from "@/db/schema";
 import { beforeAll } from "bun:test";
-import { db, waitlistMockData } from "./db.mock";
+import { db } from "./db.mock";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { DBInstance } from "..";
 
