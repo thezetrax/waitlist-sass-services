@@ -82,27 +82,21 @@ const updateWaitlistEntry = async (
 };
 
 const generateWaitlistReferralCode = async () => {
+  // Create an array of size $len
+  // Randomly choose a character from the character set
+  // Convert the random index to a character
+  // Join the characters into a string
   const generateRandomCode = (len: number): string => {
     const chars =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
-    for (let i = 0; i < len; i++) {
-      const randIdx = Math.floor(Math.random() * chars.length);
-      result += chars.charAt(randIdx);
-    }
-
-    //#region refactor
-    const res = [...Array(len).keys()]
-      .map(() => {
-        const randIdx = Math.floor(Math.random() * chars.length);
-        chars.charAt(randIdx);
-      })
+    const code = [...Array(len).keys()]
+      .map(() => Math.floor(Math.random() * chars.length))
+      .map((randIdx) => chars.charAt(randIdx))
       .join("");
-    //#endregion
 
-    return result;
+    return code;
   };
-  const CODE_LEN = 10;
+  const CODE_LEN = 10; // Length of the referral code
 
   const code = generateRandomCode(CODE_LEN);
   return code;
