@@ -1,5 +1,5 @@
 import { createWaitlist, tables } from "@/db/schema";
-import { cleanDB, db, waitlistMockData } from "@/db/test/db.mock";
+import { cleanDB, db, Waitlist, waitlistMockData } from "@/db/test/db.mock";
 import { logger } from "@/lib/test/logger.mock";
 import {
   afterEach,
@@ -16,6 +16,8 @@ import {
   createWaitlistEntry,
   fetchAllWaitlistEntries,
   fetchWaitlistEntry,
+  removeWaitlistEntry,
+  updateWaitlistEntry,
 } from "../waitlist";
 import { eq } from "drizzle-orm";
 import { seedDB } from "@/db/test/db.setup";
@@ -82,10 +84,94 @@ describe("waitlist controller", () => {
       );
     });
 
-    test.todo("should update a waitlist entry", () => {});
-    test.todo("should set the waitlist release date", () => {});
-    test.todo("should change waitlist status", () => {});
-    test.todo("should remove a waitlist entry by id", () => {});
+    test("should update a waitlist entry", async () => {
+      const oldWaitlist: Waitlist = {
+        name: "Waitlist #1",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        email: "test@example.com",
+        referralCode: "ref003",
+      };
+      const newWaitlist: Waitlist = {
+        ...oldWaitlist,
+        name: "Updated Waitlist Name",
+      };
+
+      const created = await createWaitlistEntry(dependencies, oldWaitlist);
+      const updated = await updateWaitlistEntry(
+        dependencies,
+        created.id,
+        newWaitlist,
+      );
+
+      expect(updated.id).toBe(created.id);
+      expect(updated.name).toBe(newWaitlist.name);
+    });
+
+    test("should remove a waitlist entry by id", async () => {
+      const waitlist: Waitlist = {
+        name: "Waitlist #1",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        email: "test@example.com",
+        referralCode: "ref003",
+      };
+
+      const created = await createWaitlistEntry(dependencies, waitlist);
+      const removed = await removeWaitlistEntry(dependencies, created.id);
+      const returned = await fetchWaitlistEntry(dependencies, created.id);
+
+      expect(removed.deletedId).toBe(created.id);
+      expect(returned).toBeUndefined();
+    });
+
+    test("should set the waitlist release date", async () => {
+      const waitlist: Waitlist = {
+        name: "Waitlist #1",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        email: "test@example.com",
+        referralCode: "ref003",
+      };
+
+      const created = await createWaitlistEntry(dependencies, waitlist);
+
+      expect(created.releaseDate).toBeNull();
+
+      const updated = await updateWaitlistEntry(dependencies, created.id, {
+        releaseDate: addDays(new Date(), 7),
+      });
+
+      expect(updated.id).toBe(created.id);
+      expect(updated.name).toBe(waitlist.name);
+      expect(updated.description).toBe(waitlist.description);
+      expect(updated.email).toBe(waitlist.email);
+      expect(updated.referralCode).toBe(waitlist.referralCode);
+      expect(updated.releaseDate).toBeDefined();
+    });
+
+    test.each<NonNullable<Waitlist["status"]>>(["cancelled", "released"])(
+      "should change waitlist status to %p",
+      async (status) => {
+        const waitlist: Waitlist = {
+          name: "Waitlist #1",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          email: "test@example.com",
+          referralCode: "ABC123",
+          status: "pending",
+        };
+        const created = await createWaitlistEntry(dependencies, waitlist);
+
+        const updated = await updateWaitlistEntry(dependencies, created.id, {
+          status,
+        });
+
+        expect(updated.id).toBe(created.id);
+        expect(updated.name).toBe(waitlist.name);
+        expect(updated.description).toBe(waitlist.description);
+        expect(updated.email).toBe(waitlist.email);
+        expect(updated.referralCode).toBe(waitlist.referralCode);
+        expect(updated.status).toBe(status);
+      },
+    );
 
     describe("role based", () => {
       test.todo(

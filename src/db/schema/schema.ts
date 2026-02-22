@@ -18,6 +18,11 @@ const waitlist = table(
         mode: "timestamp",
       })
       .$defaultFn(() => new Date()),
+    updatedAt: sql
+      .integer({
+        mode: "timestamp",
+      })
+      .$defaultFn(() => new Date()),
     deletedAt: sql.integer({
       mode: "timestamp",
     }),

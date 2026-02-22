@@ -12,6 +12,7 @@ const createWaitlist = t.Object({
   email: insertForWaitlist.email,
   referralCode: insertForWaitlist.referralCode,
   releaseDate: insertForWaitlist.releaseDate,
+  status: insertForWaitlist.status,
 });
 const selectWaitlist = t.Object({
   id: selectForWaitlist.id,
@@ -22,10 +23,8 @@ const selectWaitlist = t.Object({
   status: selectForWaitlist.status,
 });
 const updateWaitlist = t.Object({
-  id: selectForWaitlist.id,
   name: insertForWaitlist.name,
   email: insertForWaitlist.email,
-  referralCode: insertForWaitlist.referralCode,
   releaseDate: insertForWaitlist.releaseDate,
   status: insertForWaitlist.status,
 });

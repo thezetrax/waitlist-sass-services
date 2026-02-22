@@ -7,6 +7,7 @@ CREATE TABLE `waitlist` (
 	`referredBy` text,
 	`releaseDate` integer,
 	`createdAt` integer,
+	`updatedAt` integer,
 	`deletedAt` integer,
 	`status` text DEFAULT 'pending' NOT NULL
 );

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "5d2e1d71-246e-436c-93ef-a8c641fe6d66",
+  "id": "e41d2aa2-95e6-4eb0-bab0-2b483f664554",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "waitlist": {
@@ -58,6 +58,13 @@
         },
         "createdAt": {
           "name": "createdAt",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "updatedAt": {
+          "name": "updatedAt",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
