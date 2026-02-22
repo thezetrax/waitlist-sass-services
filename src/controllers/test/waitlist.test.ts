@@ -239,10 +239,6 @@ describe("waitlist controller", () => {
       expect(code).toBeString();
       expect(code).toHaveLength(10);
     });
-    test.todo(
-      "should be able to change the waitlist entry's referral code",
-      () => {},
-    );
   });
 
   describe("events", () => {
