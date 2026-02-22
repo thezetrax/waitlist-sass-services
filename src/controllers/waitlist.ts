@@ -8,20 +8,27 @@
 //    - push notification
 //    - slack/telegram
 
-import { eq } from "drizzle-orm";
-import { AppContext } from "..";
 import {
-  tables,
   createWaitlist,
   selectWaitlist,
+  tables,
   updateWaitlist,
 } from "@/db/schema";
 import { TODO } from "@/lib/todo";
+import { and, eq, isNull } from "drizzle-orm";
+import { AppContext } from "..";
+import { randomInt } from "node:crypto";
+import { User } from "better-auth/*";
 
 type Dependencies = Pick<AppContext, "log" | "db">;
 
+// todo pagination
 const fetchAllWaitlistEntries = async ({ db }: Dependencies) =>
-  db.select().from(tables.waitlist).all();
+  db
+    .select()
+    .from(tables.waitlist)
+    .where(isNull(tables.waitlist.deletedAt))
+    .all();
 
 const createWaitlistEntry = async (
   { db }: Dependencies,
@@ -29,7 +36,11 @@ const createWaitlistEntry = async (
 ) => {
   const returned = await db
     .insert(tables.waitlist)
-    .values(waitlist)
+    .values({
+      ...waitlist,
+      referralCode:
+        waitlist.referralCode || (await generateWaitlistReferralCode()),
+    })
     .returning();
   return returned[0];
 };
@@ -37,28 +48,91 @@ const createWaitlistEntry = async (
 const fetchWaitlistEntry = async (
   { db }: Dependencies,
   id: typeof selectWaitlist.static.id,
-) => await db.select().from(tables.waitlist).where(eq(tables.waitlist.id, id));
+) =>
+  (
+    await db
+      .select()
+      .from(tables.waitlist)
+      .where(and(eq(tables.waitlist.id, id), isNull(tables.waitlist.deletedAt)))
+      .limit(1)
+  )[0];
 
 const removeWaitlistEntry = async (
-  _: Dependencies,
-  _id: typeof selectWaitlist.static.id,
-) => TODO();
+  { db }: Dependencies,
+  id: typeof selectWaitlist.static.id,
+) => {
+  const returned = await db
+    .update(tables.waitlist)
+    .set({
+      deletedAt: new Date(),
+    })
+    .where(eq(tables.waitlist.id, id))
+    .limit(1)
+    .returning({
+      deletedId: tables.waitlist.id,
+    });
+
+  return returned[0];
+};
 
 const updateWaitlistEntry = async (
-  _: Dependencies,
-  _waitlist: typeof updateWaitlist.static,
-) => TODO();
+  { db }: Dependencies,
+  id: typeof selectWaitlist.static.id,
+  updatedWaitlist: Partial<typeof updateWaitlist.static>,
+) => {
+  const returning = await db
+    .update(tables.waitlist)
+    .set(updatedWaitlist)
+    .where(eq(tables.waitlist.id, id))
+    .limit(1)
+    .returning();
 
-const generateWaitlistReferralCode = async () =>
-  TODO("generate a unique referral code");
+  return returning[0];
+};
+
+const generateWaitlistReferralCode = async () => {
+  // Create an array of size $len
+  // Randomly choose a character from the character set
+  // Convert the random index to a character
+  // Join the characters into a string
+  const generateRandomCode = (len: number): string => {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const code = [...Array(len).keys()]
+      .map(() => Math.floor(Math.random() * chars.length))
+      .map((randIdx) => chars.charAt(randIdx))
+      .join("");
+
+    return code;
+  };
+  const CODE_LEN = 10; // Length of the referral code
+
+  const code = generateRandomCode(CODE_LEN);
+  return code;
+};
+
+const fetchUserWaitlistEntries = async ({ db }: Dependencies, user: User) => {
+  const waitlists = await db
+    .select()
+    .from(tables.waitlist)
+    .where(
+      and(
+        eq(tables.waitlist.userId, Number(user.id)),
+        isNull(tables.waitlist.deletedAt),
+      ),
+    );
+
+  return waitlists;
+};
 
 export {
-  fetchAllWaitlistEntries,
   createWaitlistEntry,
-  fetchWaitlistEntry,
+  generateWaitlistReferralCode,
   removeWaitlistEntry,
   updateWaitlistEntry,
-  generateWaitlistReferralCode,
+  fetchAllWaitlistEntries,
+  fetchWaitlistEntry,
+  fetchUserWaitlistEntries,
 };
 
 export type { Dependencies };

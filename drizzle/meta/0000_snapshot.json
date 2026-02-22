@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "5d2e1d71-246e-436c-93ef-a8c641fe6d66",
+  "id": "ef67fc16-744d-427c-8b9d-e21b2df8240c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "waitlist": {
@@ -13,6 +13,13 @@
           "primaryKey": true,
           "notNull": true,
           "autoincrement": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         },
         "name": {
           "name": "name",
@@ -63,6 +70,13 @@
           "notNull": false,
           "autoincrement": false
         },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "deletedAt": {
           "name": "deletedAt",
           "type": "integer",
@@ -80,13 +94,6 @@
         }
       },
       "indexes": {
-        "waitlist_email_unique": {
-          "name": "waitlist_email_unique",
-          "columns": [
-            "email"
-          ],
-          "isUnique": true
-        },
         "waitlist_referralCode_unique": {
           "name": "waitlist_referralCode_unique",
           "columns": [
@@ -95,7 +102,21 @@
           "isUnique": true
         }
       },
-      "foreignKeys": {},
+      "foreignKeys": {
+        "waitlist_userId_user_id_fk": {
+          "name": "waitlist_userId_user_id_fk",
+          "tableFrom": "waitlist",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}

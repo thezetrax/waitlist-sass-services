@@ -5,6 +5,7 @@ import { seedDB } from "@/lib/db";
 type Waitlist = typeof createWaitlist.static;
 const waitlistSeedData: Waitlist[] = [
   {
+    userId: 1,
     name: "John Doe",
     email: "jhon.doe@example.com",
     referralCode: "ABC123",
