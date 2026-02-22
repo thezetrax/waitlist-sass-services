@@ -1,53 +1,34 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# dependencies (bun install)
+node_modules
 
-# data
-/data
+# output
+out
+dist
+*.tgz
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# code coverage
+coverage
+*.lcov
 
-# testing
-/coverage
+# logs
+logs
+_.log
+report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env.local
+# dotenv environment variable files
+.env
 .env.development.local
 .env.test.local
 .env.production.local
-.env
+.env.local
 
-# vercel
-.vercel
+# caches
+.eslintcache
+.cache
+*.tsbuildinfo
 
-**/*.trace
-**/*.zip
-**/*.tar.gz
-**/*.tgz
-**/*.log
-package-lock.json
-**/*.bun
+# IntelliJ based IDEs
+.idea
 
-# Dist
-/dist
-
-# Temp
-/temp
-/tmp
+# Finder (MacOS) folder config
+.DS_Store
