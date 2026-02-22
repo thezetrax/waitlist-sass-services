@@ -1,8 +1,10 @@
 {
   "name": "waitlist-sass-services",
+  "packageManager": "bun@1.3.8",
   "private": true,
   "scripts": {
-    "test": "bun run --workspaces test"
+    "test": "bun run --workspaces test",
+    "dev": "bun run --workspaces dev"
   },
   "workspaces": {
     "packages": [
