@@ -17,6 +17,7 @@ import {
 import { TODO } from "@/lib/todo";
 import { and, eq, isNull } from "drizzle-orm";
 import { AppContext } from "..";
+import { randomInt } from "node:crypto";
 
 type Dependencies = Pick<AppContext, "log" | "db">;
 
@@ -80,8 +81,32 @@ const updateWaitlistEntry = async (
   return returning[0];
 };
 
-const generateWaitlistReferralCode = async () =>
-  TODO("generate a unique referral code");
+const generateWaitlistReferralCode = async () => {
+  const generateRandomCode = (len: number): string => {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < len; i++) {
+      const randIdx = Math.floor(Math.random() * chars.length);
+      result += chars.charAt(randIdx);
+    }
+
+    //#region refactor
+    const res = [...Array(len).keys()]
+      .map(() => {
+        const randIdx = Math.floor(Math.random() * chars.length);
+        chars.charAt(randIdx);
+      })
+      .join("");
+    //#endregion
+
+    return result;
+  };
+  const CODE_LEN = 10;
+
+  const code = generateRandomCode(CODE_LEN);
+  return code;
+};
 
 export {
   createWaitlistEntry,

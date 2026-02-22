@@ -16,6 +16,7 @@ import {
   createWaitlistEntry,
   fetchAllWaitlistEntries,
   fetchWaitlistEntry,
+  generateWaitlistReferralCode,
   removeWaitlistEntry,
   updateWaitlistEntry,
 } from "../waitlist";
@@ -189,10 +190,25 @@ describe("waitlist controller", () => {
   });
 
   describe("generating referral code", () => {
-    test.todo(
-      "should generate a waitlist entry with a unique referral code",
-      () => {},
-    );
+    test("should generate a waitlist entry with a unique referral code", async () => {});
+    test("should generate a unique referral code", async () => {
+      const numberOfCodes = 1000;
+      const codes = await Promise.all(
+        [...Array(1000).keys()].map(() => generateWaitlistReferralCode()),
+      );
+
+      codes.forEach((code, codePos, arr) => {
+        const contains = arr
+          .filter((_, otherCodePos) => codePos != otherCodePos)
+          .some((otherCode) => code == otherCode);
+        expect(contains).not.toBeTrue();
+      });
+
+      const code = await generateWaitlistReferralCode();
+
+      expect(code).toBeString();
+      expect(code).toHaveLength(10);
+    });
     test.todo(
       "should be able to change the waitlist entry's referral code",
       () => {},
