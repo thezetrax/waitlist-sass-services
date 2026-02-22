@@ -31,7 +31,11 @@ const createWaitlistEntry = async (
 ) => {
   const returned = await db
     .insert(tables.waitlist)
-    .values(waitlist)
+    .values({
+      ...waitlist,
+      referralCode:
+        waitlist.referralCode || (await generateWaitlistReferralCode()),
+    })
     .returning();
   return returned[0];
 };

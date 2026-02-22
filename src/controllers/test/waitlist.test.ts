@@ -144,7 +144,8 @@ describe("waitlist controller", () => {
       expect(updated.name).toBe(waitlist.name);
       expect(updated.description).toBe(waitlist.description);
       expect(updated.email).toBe(waitlist.email);
-      expect(updated.referralCode).toBe(waitlist.referralCode);
+      expect(updated.referralCode).not.toBeUndefined();
+      expect(updated.referralCode).toBe(waitlist.referralCode!);
       expect(updated.releaseDate).toBeDefined();
     });
 
@@ -169,7 +170,8 @@ describe("waitlist controller", () => {
         expect(updated.name).toBe(waitlist.name);
         expect(updated.description).toBe(waitlist.description);
         expect(updated.email).toBe(waitlist.email);
-        expect(updated.referralCode).toBe(waitlist.referralCode);
+        expect(updated.referralCode).not.toBeUndefined();
+        expect(updated.referralCode).toBe(waitlist.referralCode!);
         expect(updated.status).toBe(status);
       },
     );
@@ -190,11 +192,39 @@ describe("waitlist controller", () => {
   });
 
   describe("generating referral code", () => {
-    test("should generate a waitlist entry with a unique referral code", async () => {});
+    test("should generate a waitlist entry with a unique referral code if not provided", async () => {
+      const noOfWaitlist = 500;
+      const waitlistList = [...Array(noOfWaitlist).keys()].map(
+        (key) =>
+          ({
+            name: `Waitlist #${key}`,
+            email: `waitlist${key}@example.com`,
+            releaseDate: new Date(),
+            description: `Description #${key}`,
+          }) satisfies Waitlist,
+      );
+
+      const waitlistFromDB = await Promise.all(
+        waitlistList.map((waitlist) =>
+          createWaitlistEntry(dependencies, waitlist),
+        ),
+      );
+
+      waitlistFromDB
+        .map((waitlist) => waitlist.referralCode)
+        .forEach((code, idx, arr) => {
+          const contains = arr
+            .filter((_, otherIdx) => otherIdx != idx)
+            .some((otherCode) => code == otherCode);
+          expect(contains).not.toBeTrue();
+        });
+    });
     test("should generate a unique referral code", async () => {
-      const numberOfCodes = 1000;
+      const numberOfCodes = 5000;
       const codes = await Promise.all(
-        [...Array(1000).keys()].map(() => generateWaitlistReferralCode()),
+        [...Array(numberOfCodes).keys()].map(() =>
+          generateWaitlistReferralCode(),
+        ),
       );
 
       codes.forEach((code, codePos, arr) => {

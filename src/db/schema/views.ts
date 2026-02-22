@@ -10,7 +10,7 @@ const createWaitlist = t.Object({
   name: insertForWaitlist.name,
   description: insertForWaitlist.description,
   email: insertForWaitlist.email,
-  referralCode: insertForWaitlist.referralCode,
+  referralCode: t.Optional(insertForWaitlist.referralCode),
   releaseDate: insertForWaitlist.releaseDate,
   status: insertForWaitlist.status,
 });
