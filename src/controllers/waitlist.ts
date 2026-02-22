@@ -18,12 +18,17 @@ import { TODO } from "@/lib/todo";
 import { and, eq, isNull } from "drizzle-orm";
 import { AppContext } from "..";
 import { randomInt } from "node:crypto";
+import { User } from "better-auth/*";
 
 type Dependencies = Pick<AppContext, "log" | "db">;
 
 // todo pagination
 const fetchAllWaitlistEntries = async ({ db }: Dependencies) =>
-  db.select().from(tables.waitlist).all();
+  db
+    .select()
+    .from(tables.waitlist)
+    .where(isNull(tables.waitlist.deletedAt))
+    .all();
 
 const createWaitlistEntry = async (
   { db }: Dependencies,
@@ -106,13 +111,28 @@ const generateWaitlistReferralCode = async () => {
   return code;
 };
 
+const fetchUserWaitlistEntries = async ({ db }: Dependencies, user: User) => {
+  const waitlists = await db
+    .select()
+    .from(tables.waitlist)
+    .where(
+      and(
+        eq(tables.waitlist.userId, Number(user.id)),
+        isNull(tables.waitlist.deletedAt),
+      ),
+    );
+
+  return waitlists;
+};
+
 export {
   createWaitlistEntry,
-  fetchAllWaitlistEntries,
-  fetchWaitlistEntry,
   generateWaitlistReferralCode,
   removeWaitlistEntry,
   updateWaitlistEntry,
+  fetchAllWaitlistEntries,
+  fetchWaitlistEntry,
+  fetchUserWaitlistEntries,
 };
 
 export type { Dependencies };

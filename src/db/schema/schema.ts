@@ -7,9 +7,13 @@ const waitlist = table(
   "waitlist",
   {
     id: sql.integer().primaryKey({ autoIncrement: true }),
+    userId: sql
+      .integer()
+      .references(() => user.id)
+      .notNull(),
     name: sql.text().notNull(),
     description: sql.text().notNull(),
-    email: sql.text().notNull().unique(),
+    email: sql.text().notNull(),
     referralCode: sql.text().notNull().unique(),
     referredBy: sql.text(),
     releaseDate: sql.integer({ mode: "timestamp" }),

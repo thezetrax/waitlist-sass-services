@@ -1,5 +1,13 @@
 import { createWaitlist, tables } from "@/db/schema";
-import { cleanDB, db, Waitlist, waitlistMockData } from "@/db/test/db.mock";
+import {
+  cleanDB,
+  createUserEntry,
+  db,
+  userMockData,
+  Waitlist,
+  waitlistMockData,
+} from "@/db/test/db.mock";
+import { seedDB } from "@/db/test/db.setup";
 import { logger } from "@/lib/test/logger.mock";
 import {
   afterEach,
@@ -11,17 +19,17 @@ import {
   test,
 } from "bun:test";
 import { addDays } from "date-fns";
+import { eq } from "drizzle-orm";
 import {
-  Dependencies,
   createWaitlistEntry,
+  Dependencies,
   fetchAllWaitlistEntries,
+  fetchUserWaitlistEntries,
   fetchWaitlistEntry,
   generateWaitlistReferralCode,
   removeWaitlistEntry,
   updateWaitlistEntry,
 } from "../waitlist";
-import { eq } from "drizzle-orm";
-import { seedDB } from "@/db/test/db.setup";
 
 describe("waitlist controller", () => {
   let dependencies: Dependencies;
@@ -30,6 +38,9 @@ describe("waitlist controller", () => {
       db: db,
       log: logger,
     };
+
+    // create users
+    createUserEntry(...userMockData);
   });
 
   beforeEach(() => {
@@ -54,6 +65,7 @@ describe("waitlist controller", () => {
 
     test("should create a waitlist entry", async () => {
       const newWaitlist: typeof createWaitlist.static = {
+        userId: Number(userMockData[0].id),
         name: "Test Waitlist",
         email: "test@example.com",
         referralCode: "ABC1234",
@@ -87,6 +99,7 @@ describe("waitlist controller", () => {
 
     test("should update a waitlist entry", async () => {
       const oldWaitlist: Waitlist = {
+        userId: Number(userMockData[0].id),
         name: "Waitlist #1",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         email: "test@example.com",
@@ -110,6 +123,7 @@ describe("waitlist controller", () => {
 
     test("should remove a waitlist entry by id", async () => {
       const waitlist: Waitlist = {
+        userId: Number(userMockData[0].id),
         name: "Waitlist #1",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         email: "test@example.com",
@@ -126,6 +140,7 @@ describe("waitlist controller", () => {
 
     test("should set the waitlist release date", async () => {
       const waitlist: Waitlist = {
+        userId: Number(userMockData[0].id),
         name: "Waitlist #1",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         email: "test@example.com",
@@ -153,6 +168,7 @@ describe("waitlist controller", () => {
       "should change waitlist status to %p",
       async (status) => {
         const waitlist: Waitlist = {
+          userId: Number(userMockData[0].id),
           name: "Waitlist #1",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -177,11 +193,57 @@ describe("waitlist controller", () => {
     );
 
     describe("role based", () => {
-      test.todo(
-        "should be able to list waitlist sign-ups with essential details about attendee",
-        () => {},
+      const user1 = userMockData[0];
+      const user2 = userMockData[1];
+      const randomTrueFalse = () => !!Math.floor(Math.random() * 2);
+
+      const waitlistEntriesPerUser = 15;
+      const waitlistList = [user1, user2]
+        .map((user) => {
+          const { id: uid } = user;
+          const waitlistFromUser = [
+            ...Array(waitlistEntriesPerUser).keys(),
+          ].map(
+            (waitlistId) =>
+              ({
+                userId: Number(uid),
+                name: `User ${uid} Waitlist #${waitlistId}`,
+                description:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                email: user.email,
+                deletedAt: randomTrueFalse() ? new Date() : null,
+              }) as Waitlist,
+          );
+
+          return waitlistFromUser;
+        })
+        .flat();
+
+      beforeEach(async () => {
+        for await (const waitlist of waitlistList) {
+          createWaitlistEntry(dependencies, waitlist);
+        }
+      });
+
+      test.each([user1, user2])(
+        "should be able to list waitlist entries created by a user",
+        async (user) => {
+          const userWaitlistEntries = await fetchUserWaitlistEntries(
+            dependencies,
+            user,
+          );
+
+          userWaitlistEntries.forEach((entry) => {
+            expect(entry.deletedAt).toBeFalsy();
+            expect(entry.userId).toBe(Number(user.id));
+          });
+        },
       );
 
+      test.todo(
+        "should be able to list waitlist subscriptions with details about subscriber",
+        () => {},
+      );
       test.todo(
         "should be able to list a users waitlist's the user is a member of",
         () => {},
@@ -197,6 +259,7 @@ describe("waitlist controller", () => {
       const waitlistList = [...Array(noOfWaitlist).keys()].map(
         (key) =>
           ({
+            userId: Number(userMockData[0].id),
             name: `Waitlist #${key}`,
             email: `waitlist${key}@example.com`,
             releaseDate: new Date(),
