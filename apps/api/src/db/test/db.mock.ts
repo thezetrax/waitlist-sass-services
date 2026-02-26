@@ -50,7 +50,7 @@ type Waitlist = typeof createWaitlist.static;
 const waitlistMockData: Waitlist[] = [
   {
     userId: Number(userMockData[0].id),
-    name: "John Doe",
+    title: "John Doe",
     email: "jhon.doe@example.com",
     referralCode: "ABC123",
     releaseDate: addDays(new Date(), 10),
@@ -58,7 +58,7 @@ const waitlistMockData: Waitlist[] = [
   },
   {
     userId: Number(userMockData[1].id),
-    name: "Abebe Biqila",
+    title: "Abebe Biqila",
     email: "abebe@example.com",
     referralCode: "ABAB1234",
     releaseDate: addMonths(new Date(), 1),

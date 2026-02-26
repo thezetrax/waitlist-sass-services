@@ -1,7 +1,7 @@
 CREATE TABLE `waitlist` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`userId` integer NOT NULL,
-	`name` text NOT NULL,
+	`title` text NOT NULL,
 	`description` text NOT NULL,
 	`email` text NOT NULL,
 	`referralCode` text NOT NULL,

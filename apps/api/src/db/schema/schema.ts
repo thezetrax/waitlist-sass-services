@@ -11,7 +11,7 @@ const waitlist = table(
       .integer()
       .references(() => user.id)
       .notNull(),
-    name: sql.text().notNull(),
+    title: sql.text().notNull(),
     description: sql.text().notNull(),
     email: sql.text().notNull(),
     referralCode: sql.text().notNull().unique(),

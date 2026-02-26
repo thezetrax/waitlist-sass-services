@@ -66,7 +66,7 @@ describe("waitlist controller", () => {
     test("should create a waitlist entry", async () => {
       const newWaitlist: typeof createWaitlist.static = {
         userId: Number(userMockData[0].id),
-        name: "Test Waitlist",
+        title: "Test Waitlist",
         email: "test@example.com",
         referralCode: "ABC1234",
         releaseDate: addDays(new Date(), 7),
@@ -76,7 +76,7 @@ describe("waitlist controller", () => {
       const added = db
         .select()
         .from(tables.waitlist)
-        .where(eq(tables.waitlist.name, newWaitlist.name))
+        .where(eq(tables.waitlist.title, newWaitlist.title))
         .get();
 
       expect(added).not.toBeUndefined();
@@ -100,14 +100,14 @@ describe("waitlist controller", () => {
     test("should update a waitlist entry", async () => {
       const oldWaitlist: Waitlist = {
         userId: Number(userMockData[0].id),
-        name: "Waitlist #1",
+        title: "Waitlist #1",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         email: "test@example.com",
         referralCode: "ref003",
       };
       const newWaitlist: Waitlist = {
         ...oldWaitlist,
-        name: "Updated Waitlist Name",
+        title: "Updated Waitlist Name",
       };
 
       const created = await createWaitlistEntry(dependencies, oldWaitlist);
@@ -118,13 +118,13 @@ describe("waitlist controller", () => {
       );
 
       expect(updated.id).toBe(created.id);
-      expect(updated.name).toBe(newWaitlist.name);
+      expect(updated.name).toBe(newWaitlist.title);
     });
 
     test("should remove a waitlist entry by id", async () => {
       const waitlist: Waitlist = {
         userId: Number(userMockData[0].id),
-        name: "Waitlist #1",
+        title: "Waitlist #1",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         email: "test@example.com",
         referralCode: "ref003",
@@ -141,7 +141,7 @@ describe("waitlist controller", () => {
     test("should set the waitlist release date", async () => {
       const waitlist: Waitlist = {
         userId: Number(userMockData[0].id),
-        name: "Waitlist #1",
+        title: "Waitlist #1",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         email: "test@example.com",
         referralCode: "ref003",
@@ -156,7 +156,7 @@ describe("waitlist controller", () => {
       });
 
       expect(updated.id).toBe(created.id);
-      expect(updated.name).toBe(waitlist.name);
+      expect(updated.name).toBe(waitlist.title);
       expect(updated.description).toBe(waitlist.description);
       expect(updated.email).toBe(waitlist.email);
       expect(updated.referralCode).not.toBeUndefined();
@@ -169,7 +169,7 @@ describe("waitlist controller", () => {
       async (status) => {
         const waitlist: Waitlist = {
           userId: Number(userMockData[0].id),
-          name: "Waitlist #1",
+          title: "Waitlist #1",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
           email: "test@example.com",
@@ -183,7 +183,7 @@ describe("waitlist controller", () => {
         });
 
         expect(updated.id).toBe(created.id);
-        expect(updated.name).toBe(waitlist.name);
+        expect(updated.name).toBe(waitlist.title);
         expect(updated.description).toBe(waitlist.description);
         expect(updated.email).toBe(waitlist.email);
         expect(updated.referralCode).not.toBeUndefined();
@@ -207,7 +207,7 @@ describe("waitlist controller", () => {
             (waitlistId) =>
               ({
                 userId: Number(uid),
-                name: `User ${uid} Waitlist #${waitlistId}`,
+                title: `User ${uid} Waitlist #${waitlistId}`,
                 description:
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 email: user.email,
@@ -260,7 +260,7 @@ describe("waitlist controller", () => {
         (key) =>
           ({
             userId: Number(userMockData[0].id),
-            name: `Waitlist #${key}`,
+            title: `Waitlist #${key}`,
             email: `waitlist${key}@example.com`,
             releaseDate: new Date(),
             description: `Description #${key}`,

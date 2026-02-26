@@ -6,7 +6,7 @@ type Waitlist = typeof createWaitlist.static;
 const waitlistSeedData: Waitlist[] = [
   {
     userId: 1,
-    name: "John Doe",
+    title: "John Doe",
     email: "jhon.doe@example.com",
     referralCode: "ABC123",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",

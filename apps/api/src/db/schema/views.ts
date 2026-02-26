@@ -8,7 +8,7 @@ const selectForWaitlist = spread(waitlist, "select");
 //#region Waitlist Entry Creation and Selection
 const createWaitlist = t.Object({
   userId: insertForWaitlist.userId,
-  name: insertForWaitlist.name,
+  title: insertForWaitlist.title,
   description: insertForWaitlist.description,
   email: insertForWaitlist.email,
   referralCode: t.Optional(insertForWaitlist.referralCode),
@@ -17,14 +17,14 @@ const createWaitlist = t.Object({
 });
 const selectWaitlist = t.Object({
   id: selectForWaitlist.id,
-  name: selectForWaitlist.name,
+  title: selectForWaitlist.title,
   email: selectForWaitlist.email,
   referralCode: selectForWaitlist.referralCode,
   releaseDate: selectForWaitlist.releaseDate,
   status: selectForWaitlist.status,
 });
 const updateWaitlist = t.Object({
-  name: insertForWaitlist.name,
+  title: insertForWaitlist.title,
   email: insertForWaitlist.email,
   releaseDate: insertForWaitlist.releaseDate,
   referralCode: t.Optional(insertForWaitlist.referralCode),
