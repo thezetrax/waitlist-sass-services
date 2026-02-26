@@ -1,0 +1,14 @@
+{
+  "name": "@waitlist/mock-gen",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "dev": "bun run --watch scripts/dev.ts"
+  }
+}
