@@ -118,7 +118,7 @@ describe("waitlist controller", () => {
       );
 
       expect(updated.id).toBe(created.id);
-      expect(updated.name).toBe(newWaitlist.title);
+      expect(updated.title).toBe(newWaitlist.title);
     });
 
     test("should remove a waitlist entry by id", async () => {
@@ -156,7 +156,7 @@ describe("waitlist controller", () => {
       });
 
       expect(updated.id).toBe(created.id);
-      expect(updated.name).toBe(waitlist.title);
+      expect(updated.title).toBe(waitlist.title);
       expect(updated.description).toBe(waitlist.description);
       expect(updated.email).toBe(waitlist.email);
       expect(updated.referralCode).not.toBeUndefined();
@@ -183,7 +183,7 @@ describe("waitlist controller", () => {
         });
 
         expect(updated.id).toBe(created.id);
-        expect(updated.name).toBe(waitlist.title);
+        expect(updated.title).toBe(waitlist.title);
         expect(updated.description).toBe(waitlist.description);
         expect(updated.email).toBe(waitlist.email);
         expect(updated.referralCode).not.toBeUndefined();

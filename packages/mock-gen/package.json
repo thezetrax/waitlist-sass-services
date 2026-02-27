@@ -8,7 +8,13 @@
   "peerDependencies": {
     "typescript": "^5"
   },
+  "dependencies": {
+    "@faker-js/faker": "^10.3.0",
+    "@waitlist/schema": "workspace:*",
+    "elysia": "catalog:"
+  },
   "scripts": {
-    "dev": "bun run --watch scripts/dev.ts"
+    "dev": "bun run --watch src/index.ts",
+    "build": "bun run src/index.ts"
   }
 }
