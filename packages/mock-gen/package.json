@@ -8,6 +8,10 @@
   "peerDependencies": {
     "typescript": "^5"
   },
+  "dependencies": {
+    "@waitlist/schema": "workspace:*",
+    "elysia": "catalog:"
+  },
   "scripts": {
     "dev": "bun run --watch scripts/dev.ts"
   }
