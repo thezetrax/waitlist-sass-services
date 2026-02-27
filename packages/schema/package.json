@@ -1,0 +1,20 @@
+{
+  "name": "@waitlist/schema",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "drizzle-orm": "*",
+    "bun-types": "*",
+    "drizzle-typebox": "*",
+    "@sinclair/typebox": "*",
+    "elysia": "catalog:"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "build": "bun build --outdir dist src/index.ts",
+    "build:types": "tsc src/index.ts --outDir dist"
+  }
+}
