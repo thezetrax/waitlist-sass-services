@@ -1,11 +1,44 @@
 // Moved from apps/api/src/db/schema/views.ts
+import { spread } from "./lib/db";
 import { waitlist } from "./schema";
+import { t } from "elysia";
 
-const createWaitlistSchema = waitlist.$inferInsert;
-const selectWaitlistSchema = waitlist.$inferSelect;
+const insertForWaitlist = spread(waitlist, "insert");
+const selectForWaitlist = spread(waitlist, "select");
 
-type CreateWaitlist = typeof waitlist.$inferInsert;
-type SelectWaitlist = typeof waitlist.$inferSelect;
+//#region Waitlist Entry Creation and Selection
+const createWaitlist = t.Object({
+  userId: insertForWaitlist.userId,
+  title: insertForWaitlist.title,
+  description: insertForWaitlist.description,
+  email: insertForWaitlist.email,
+  referralCode: t.Optional(insertForWaitlist.referralCode),
+  releaseDate: insertForWaitlist.releaseDate,
+  status: insertForWaitlist.status,
+});
+const selectWaitlist = t.Object({
+  id: selectForWaitlist.id,
+  title: selectForWaitlist.title,
+  email: selectForWaitlist.email,
+  referralCode: selectForWaitlist.referralCode,
+  releaseDate: selectForWaitlist.releaseDate,
+  status: selectForWaitlist.status,
+});
+const updateWaitlist = t.Object({
+  title: insertForWaitlist.title,
+  email: insertForWaitlist.email,
+  releaseDate: insertForWaitlist.releaseDate,
+  referralCode: t.Optional(insertForWaitlist.referralCode),
+  status: insertForWaitlist.status,
+});
+//#endregion
 
-export { createWaitlistSchema, selectWaitlistSchema };
-export type { CreateWaitlist, SelectWaitlist };
+//#region Types
+type CreateWaitlist = typeof createWaitlist.static;
+type SelectWaitlist = typeof selectWaitlist.static;
+type UpdateWaitlist = typeof updateWaitlist.static;
+// type SelectWaitlist = typeof waitlist.$inferSelect; // for later
+//#endregion
+
+export { createWaitlist, selectWaitlist, updateWaitlist };
+export type { CreateWaitlist, SelectWaitlist, UpdateWaitlist };
