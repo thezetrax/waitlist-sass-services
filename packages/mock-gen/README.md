@@ -1,15 +1,8 @@
 # mock-gen
 
-To install dependencies:
+Before using in other projects, please ensure you generate the mock data using the following command:
 
 ```bash
-bun install
+bun run build
+bun run dev # start watch build, rebuild on file change
 ```
-
-To run:
-
-```bash
-bun run src/index.ts
-```
-
-This project was created using `bun init` in bun v1.3.8. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.

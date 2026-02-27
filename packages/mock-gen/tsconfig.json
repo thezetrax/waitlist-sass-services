@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
+
     // Environment setup & latest features
     "lib": ["ESNext"],
     "target": "ESNext",
@@ -25,10 +27,5 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@scripts/*": ["scripts/*"],
-    },
   },
 }

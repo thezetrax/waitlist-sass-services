@@ -14,7 +14,7 @@
     "elysia": "catalog:"
   },
   "scripts": {
-    "dev": "bun run --watch src/index.ts",
-    "build": "bun run src/index.ts"
+    "dev": "bun run --watch cmd/index.ts",
+    "build": "bun run cmd/index.ts"
   }
 }
