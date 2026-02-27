@@ -1,12 +1,12 @@
 // Moved from apps/api/src/db/schema/views.ts
 import { spread } from "./lib/db";
-import { waitlist } from "./schema";
+import { user, waitlist, waitlistAnnouncement, waitlistSignup } from "./schema";
 import { t } from "elysia";
 
 const insertForWaitlist = spread(waitlist, "insert");
 const selectForWaitlist = spread(waitlist, "select");
 
-//#region Waitlist Entry Creation and Selection
+//#region Waitlist
 const createWaitlist = t.Object({
   userId: insertForWaitlist.userId,
   title: insertForWaitlist.title,
@@ -31,14 +31,32 @@ const updateWaitlist = t.Object({
   referralCode: t.Optional(insertForWaitlist.referralCode),
   status: insertForWaitlist.status,
 });
-//#endregion
 
-//#region Types
 type CreateWaitlist = typeof createWaitlist.static;
 type SelectWaitlist = typeof selectWaitlist.static;
 type UpdateWaitlist = typeof updateWaitlist.static;
-// type SelectWaitlist = typeof waitlist.$inferSelect; // for later
+type Waitlist = typeof waitlist.$inferSelect;
+//#endregion
+
+//#region Waitlist Announcement
+type WaitlistAnnouncement = typeof waitlistAnnouncement.$inferSelect;
+//#endregion
+
+//#region Waitlist Signup
+type WaitlistSignup = typeof waitlistSignup.$inferSelect;
+//#endregion
+
+//#region User
+type User = typeof user.$inferInsert;
 //#endregion
 
 export { createWaitlist, selectWaitlist, updateWaitlist };
-export type { CreateWaitlist, SelectWaitlist, UpdateWaitlist };
+export type {
+  CreateWaitlist,
+  SelectWaitlist,
+  UpdateWaitlist,
+  Waitlist,
+  WaitlistAnnouncement,
+  WaitlistSignup,
+  User,
+};
