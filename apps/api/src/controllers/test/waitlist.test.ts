@@ -1,4 +1,4 @@
-import { createWaitlist, tables } from "@/db/schema";
+import { createWaitlist, tables } from "@waitlist/schema";
 import {
   cleanDB,
   createUserEntry,

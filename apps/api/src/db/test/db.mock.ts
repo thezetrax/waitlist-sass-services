@@ -1,6 +1,6 @@
 import { drizzle } from "drizzle-orm/bun-sqlite";
 import { Database } from "bun:sqlite";
-import { createWaitlist, tables } from "@/db/schema";
+import { createWaitlist, tables } from "@waitlist/schema";
 import { addDays, addMonths, subMonths } from "date-fns";
 import { User } from "better-auth/db";
 import { sql } from "drizzle-orm";

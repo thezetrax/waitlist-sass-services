@@ -1,4 +1,4 @@
-import * as schema from "@/db/schema";
+import * as schema from "@waitlist/schema";
 import { App } from "..";
 import { fetchAllWaitlistEntries } from "@/controllers/waitlist";
 

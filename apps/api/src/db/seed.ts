@@ -1,8 +1,7 @@
 import { db, DBInstance } from "@/db";
-import { createWaitlist, tables } from "@/db/schema";
+import type { CreateWaitlist as Waitlist } from "@waitlist/schema";
 import { seedDB } from "@/lib/db";
 
-type Waitlist = typeof createWaitlist.static;
 const waitlistSeedData: Waitlist[] = [
   {
     userId: 1,

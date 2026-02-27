@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { tables } from "@/db/schema";
+import { tables } from "@waitlist/schema";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { openAPI } from "better-auth/plugins";

@@ -9,15 +9,13 @@
 //    - slack/telegram
 
 import {
-  createWaitlist,
-  selectWaitlist,
   tables,
-  updateWaitlist,
-} from "@/db/schema";
-import { TODO } from "@/lib/todo";
+  CreateWaitlist,
+  SelectWaitlist,
+  UpdateWaitlist,
+} from "@waitlist/schema";
 import { and, eq, isNull } from "drizzle-orm";
 import { AppContext } from "..";
-import { randomInt } from "node:crypto";
 import { User } from "better-auth/*";
 
 type Dependencies = Pick<AppContext, "log" | "db">;
@@ -32,7 +30,7 @@ const fetchAllWaitlistEntries = async ({ db }: Dependencies) =>
 
 const createWaitlistEntry = async (
   { db }: Dependencies,
-  waitlist: typeof createWaitlist.static,
+  waitlist: CreateWaitlist,
 ) => {
   const returned = await db
     .insert(tables.waitlist)
@@ -47,7 +45,7 @@ const createWaitlistEntry = async (
 
 const fetchWaitlistEntry = async (
   { db }: Dependencies,
-  id: typeof selectWaitlist.static.id,
+  id: SelectWaitlist["id"],
 ) =>
   (
     await db
@@ -59,7 +57,7 @@ const fetchWaitlistEntry = async (
 
 const removeWaitlistEntry = async (
   { db }: Dependencies,
-  id: typeof selectWaitlist.static.id,
+  id: SelectWaitlist["id"],
 ) => {
   const returned = await db
     .update(tables.waitlist)
@@ -77,8 +75,8 @@ const removeWaitlistEntry = async (
 
 const updateWaitlistEntry = async (
   { db }: Dependencies,
-  id: typeof selectWaitlist.static.id,
-  updatedWaitlist: Partial<typeof updateWaitlist.static>,
+  id: SelectWaitlist["id"],
+  updatedWaitlist: Partial<UpdateWaitlist>,
 ) => {
   const returning = await db
     .update(tables.waitlist)

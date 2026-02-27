@@ -22,9 +22,10 @@
     "drizzle-orm": "^0.45.1",
     "drizzle-typebox": "^0.3.3",
     "drizzle-zod": "^0.8.3",
-    "elysia": "latest",
+    "elysia": "catalog:",
     "loglayer": "^9.1.0",
-    "zod": "^4.3.6"
+    "zod": "^4.3.6",
+    "@waitlist/schema": "workspace:*"
   },
   "devDependencies": {
     "@orangeopensource/hurl": "^7.1.3",
