@@ -1,9 +1,16 @@
-import type { CreateWaitlist } from "@waitlist/schema";
+import { rmdirSync, mkdirSync, existsSync } from "node:fs";
+import { generateMockData } from "@/generate";
 
-export const generateMockData = () => {
-  const waitlist: CreateWaitlist = {};
+const OUT_DIR = "./out";
+const exists = () => existsSync(OUT_DIR);
+const cleanup = () => rmdirSync(OUT_DIR);
+const setup = () => mkdirSync(OUT_DIR);
 
-  // Example usage of schema types
-  console.log("Generating Test Mock Data!");
-  // console.log(tables, createWaitlist);
-};
+function main() {
+  if (exists()) cleanup();
+  setup();
+
+  generateMockData();
+}
+
+main();
