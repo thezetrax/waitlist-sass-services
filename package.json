@@ -12,7 +12,9 @@
       "packages/*"
     ],
     "catalog": {
-      "elysia": "1.4.25"
+      "elysia": "1.4.25",
+      "date-fns": "^4.1.0",
+      "loglayer": "^9.1.0"
     }
   },
   "devDependencies": {
