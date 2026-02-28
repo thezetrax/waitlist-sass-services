@@ -1,6 +1,11 @@
 // Moved from apps/api/src/db/schema/views.ts
 import { spread } from "./lib/db";
-import { user, waitlist, waitlistAnnouncement, waitlistSignup } from "./schema";
+import {
+  tables,
+  waitlist,
+  waitlistAnnouncement,
+  waitlistSignup,
+} from "./schema";
 import { t } from "elysia";
 
 const insertForWaitlist = spread(waitlist, "insert");
@@ -47,7 +52,7 @@ type WaitlistSignup = typeof waitlistSignup.$inferSelect;
 //#endregion
 
 //#region User
-type User = typeof user.$inferInsert;
+type User = typeof tables.user.$inferInsert;
 //#endregion
 
 export { createWaitlist, selectWaitlist, updateWaitlist };
