@@ -3,7 +3,7 @@ import type {
   WaitlistAnnouncement,
   WaitlistSignup,
   User,
-} from "@waitlist/schema";
+} from "@qeberodev/schema";
 import { faker as f } from "@faker-js/faker";
 
 function createWaitlistEntry(): Waitlist {

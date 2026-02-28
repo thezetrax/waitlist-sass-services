@@ -1,5 +1,5 @@
 {
-  "name": "@waitlist/mock-gen",
+  "name": "@qeberodev/mock-gen",
   "module": "src/index.ts",
   "type": "module",
   "devDependencies": {
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^10.3.0",
-    "@waitlist/schema": "workspace:*",
+    "@qeberodev/schema": "workspace:*",
     "elysia": "catalog:"
   },
   "scripts": {

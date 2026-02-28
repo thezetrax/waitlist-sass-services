@@ -8,7 +8,7 @@
  */
 
 import { DBInstance } from "@/db";
-import { tables } from "@waitlist/schema";
+import { tables } from "@qeberodev/schema";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 
 export const runMigration = async (instance: DBInstance) => {

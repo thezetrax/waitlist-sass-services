@@ -1,4 +1,4 @@
-import { createWaitlist, tables } from "@waitlist/schema";
+import { createWaitlist, tables } from "@qeberodev/schema";
 import {
   cleanDB,
   createUserEntry,

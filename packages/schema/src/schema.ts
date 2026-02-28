@@ -1,7 +1,3 @@
-// Moved from apps/api/src/db/schema/schema.ts
-export * from "./schema";
-export * from "./auth";
-
 import { sqliteTable as table } from "drizzle-orm/sqlite-core";
 import * as sql from "drizzle-orm/sqlite-core";
 import { user } from "./auth";

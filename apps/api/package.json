@@ -1,5 +1,5 @@
 {
-  "name": "@waitlist/api",
+  "name": "@qeberodev/api",
   "version": "1.0.50",
   "scripts": {
     "build": "bun build --compile ./src/index.ts --outfile ./dist/server",
@@ -25,7 +25,7 @@
     "drizzle-zod": "^0.8.3",
     "elysia": "catalog:",
     "zod": "^4.3.6",
-    "@waitlist/schema": "workspace:*"
+    "@qeberodev/schema": "workspace:*"
   },
   "devDependencies": {
     "@orangeopensource/hurl": "^7.1.3",

@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import type { CreateWaitlist as Waitlist } from "@waitlist/schema";
+import type { CreateWaitlist as Waitlist } from "@qeberodev/schema";
 import { seedDB } from "@/lib/db";
 
 const waitlistSeedData: Waitlist[] = [

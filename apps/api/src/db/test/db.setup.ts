@@ -1,4 +1,4 @@
-import { tables } from "@waitlist/schema";
+import { tables } from "@qeberodev/schema";
 import { beforeAll } from "bun:test";
 import { db } from "./db.mock";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";

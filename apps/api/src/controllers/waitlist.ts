@@ -13,7 +13,7 @@ import {
   CreateWaitlist,
   SelectWaitlist,
   UpdateWaitlist,
-} from "@waitlist/schema";
+} from "@qeberodev/schema";
 import { and, eq, isNull } from "drizzle-orm";
 import { AppContext } from "..";
 import { User } from "better-auth/*";
