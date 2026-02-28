@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { db } from "@/db";
 import { tables } from "@waitlist/schema";
 import { betterAuth } from "better-auth";

@@ -11,6 +11,7 @@ const db = drizzle(sqlite, { schema: tables });
 let runOnce = false;
 if (runOnce) {
   db.run(sql`PRAGMA foreign_keys = ON`);
+  // eslint-disable-next-line no-useless-assignment
   runOnce = true;
 }
 

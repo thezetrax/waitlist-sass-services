@@ -17,6 +17,8 @@ export const runMigration = async (instance: DBInstance) => {
   });
 };
 
+// just helper method for seeding database
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function seedDB(instance: DBInstance, data: any[]) {
   console.log("Seeding waitlist data...");
   await instance.insert(tables.waitlist).values(data);

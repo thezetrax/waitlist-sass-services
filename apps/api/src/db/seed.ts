@@ -1,4 +1,4 @@
-import { db, DBInstance } from "@/db";
+import { db } from "@/db";
 import type { CreateWaitlist as Waitlist } from "@waitlist/schema";
 import { seedDB } from "@/lib/db";
 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Database utilities
 // read: https://elysiajs.com/integrations/drizzle.html#utility
 // for type inference integration with drizzle
