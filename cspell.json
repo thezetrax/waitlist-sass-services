@@ -6,7 +6,8 @@
     "waitlist",
     "orangeopensource",
     "waitlists",
-    "qeberodev"
+    "qeberodev",
+    "import { PinIcon } from \"lucide-react\";"
   ],
   "userWords": [
     "waitlist"
