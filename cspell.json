@@ -7,7 +7,10 @@
     "orangeopensource",
     "waitlists",
     "qeberodev",
-    "import { PinIcon } from \"lucide-react\";"
+    "import { PinIcon } from \"lucide-react\";",
+    "lucide",
+    "idbg",
+    ".idbg"
   ],
   "userWords": [
     "waitlist"
