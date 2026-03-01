@@ -1,0 +1,14 @@
+---
+import MainLayout from "@/layouts/main.astro";
+
+export const prerender = false;
+const id = Astro.url.searchParams.get("id");
+
+if (!id) {
+    return Astro.rewrite("/404");
+}
+---
+
+<MainLayout>
+    <h1>Waitlist Details id - {id}</h1>
+</MainLayout>

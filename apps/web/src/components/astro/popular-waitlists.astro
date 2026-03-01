@@ -1,0 +1,8 @@
+---
+import { WaitlistCard } from "@/components/ui/app/waitlist-card";
+---
+
+<h1 class="text-3xl font-bold px-28 mb-4">Popular Waitlists</h1>
+<section class="flex flex-row flex-wrap gap-8 justify-center px-28">
+    {[...Array(10).keys()].map(() => <WaitlistCard />)}
+</section>

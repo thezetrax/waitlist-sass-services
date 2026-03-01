@@ -1,0 +1,9 @@
+---
+import { NavControls } from "@/components/ui/nav/controls";
+import Logo from "@/components/astro/logo.astro";
+---
+
+<nav class="flex ps-8 pt-2 justify-between w-full">
+    <Logo />
+    <NavControls client:load />
+</nav>
