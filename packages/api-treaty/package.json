@@ -1,0 +1,16 @@
+{
+  "name": "@qeberodev/api-treaty",
+  "main": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@elysiajs/eden": "^1.4.8",
+    "@qeberodev/api": "workspace:*",
+    "elysia": "catalog:"
+  }
+}

@@ -1,5 +1,6 @@
 {
   "name": "@qeberodev/api",
+  "main": "src/index.ts",
   "version": "1.0.50",
   "scripts": {
     "build": "bun build --compile ./src/index.ts --outfile ./dist/server",
@@ -33,7 +34,6 @@
     "bun-types": "latest",
     "drizzle-kit": "^0.31.9"
   },
-  "module": "src/index.js",
   "trustedDependencies": [
     "@orangeopensource/hurl",
     "better-sqlite3",
