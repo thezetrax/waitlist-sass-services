@@ -10,7 +10,8 @@
     "import { PinIcon } from \"lucide-react\";",
     "lucide",
     "idbg",
-    ".idbg"
+    ".idbg",
+    "elysiajs"
   ],
   "userWords": [
     "waitlist"
