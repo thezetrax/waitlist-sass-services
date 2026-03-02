@@ -6,7 +6,7 @@ const waitlistId = "waitlist-id";
 type WaitlistCardProps = {
   id: string;
 };
-const WaitlistCard: FC<WaitlistCardProps> = (props) => {
+const WaitlistCard: FC<WaitlistCardProps> = () => {
   const { id } = { id: waitlistId };
   return (
     <Card className="flex flex-col gap-4 p-8 bg-white rounded-lg shadow-md">
