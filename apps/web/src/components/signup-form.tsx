@@ -73,6 +73,7 @@ export function SignupForm({
                   required
                 />
               </Field>
+              {/* TODO: show/hide password input */}
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
@@ -86,9 +87,9 @@ export function SignupForm({
                 <Input id="password" type="password" required />
               </Field>
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit">Sign Up</Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
+                  Don&apos;t have an account? <a href="/auth/login">Login</a>
                 </FieldDescription>
               </Field>
             </FieldGroup>

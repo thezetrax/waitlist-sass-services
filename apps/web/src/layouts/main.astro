@@ -3,32 +3,50 @@ import "../index.css";
 import "../style/debug.css";
 
 export type Props = {
-    title?: string;
-    subtitle?: string;
+  title?: string;
+  subtitle?: string;
 };
 
 const { title, subtitle } = Astro.props;
 
 function constructTitle(title?: string, subtitle?: string) {
-    if (!subtitle && !!title) return title;
-    if (!!subtitle && !title) return `Your next Waitlist Here - ${subtitle}`;
-    if (!!subtitle && !!title) return `${title} - ${subtitle}`;
+  if (!subtitle) {
+    return title || "Wishlist - Your next Wishlist Here";
+  }
+  if (!title && !!subtitle) {
+    return `Your next Waitlist Here - ${subtitle}`;
+  }
 
-    return "Wishlist - Your next Wishlist Here";
+  return `${title} - ${subtitle}`;
 }
 const pageTitle = constructTitle(title, subtitle);
 ---
 
+<script is:inline lang="ts">
+  async function authCheck() {
+    const result = await fetch("http://localhost:3000/auth/user", {
+      credentials: "include",
+    });
+    const jsonResponse = result.ok ? await result.json() : null;
+
+    console.log({
+      jsonResponse,
+    });
+  }
+
+  authCheck();
+</script>
+
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>{pageTitle}</title>
-    </head>
-    <body>
-        <slot />
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
