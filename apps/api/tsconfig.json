@@ -17,4 +17,5 @@
     "emitDeclarationOnly": true,
     "outDir": "./dist",
   },
+  "exclude": ["node_modules", "dist", "script", "cmd"],
 }

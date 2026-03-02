@@ -5,9 +5,8 @@
   "type": "module",
   "version": "1.0.50",
   "scripts": {
-    "build:compile": "bun build --compile ./cmd/server.ts --outfile ./dist/server",
-    "build": "bun --target bun build ./src/index.ts --outdir ./dist/ && tsc",
-    "dev": "bun run --watch ./cmd/server.ts ",
+    "build": "bun ./scripts/build.ts",
+    "dev": "bun ./scripts/dev.ts",
     "test:http": "hurl --variable host=http://localhost:3000 --test ./tests/http",
     "db:info": "echo 'db:* for database related actions'",
     "db:generate": "bun --bun drizzle-kit generate",
@@ -35,6 +34,7 @@
     "@orangeopensource/hurl": "^7.1.3",
     "@types/better-sqlite3": "^7.6.13",
     "bun-types": "latest",
+    "concurrently": "^9.2.1",
     "drizzle-kit": "^0.31.9"
   },
   "trustedDependencies": [
