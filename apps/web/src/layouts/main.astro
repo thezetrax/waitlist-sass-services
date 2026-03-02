@@ -22,21 +22,6 @@ function constructTitle(title?: string, subtitle?: string) {
 const pageTitle = constructTitle(title, subtitle);
 ---
 
-<script is:inline lang="ts">
-  async function authCheck() {
-    const result = await fetch("http://localhost:3000/auth/user", {
-      credentials: "include",
-    });
-    const jsonResponse = result.ok ? await result.json() : null;
-
-    console.log({
-      jsonResponse,
-    });
-  }
-
-  authCheck();
-</script>
-
 <html lang="en">
   <head>
     <meta charset="utf-8" />
