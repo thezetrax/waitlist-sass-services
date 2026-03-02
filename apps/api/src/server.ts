@@ -5,6 +5,7 @@ import { DBPlugin, LogPlugin } from "@/plugins";
 import { healthRoutes } from "@/routes";
 import { openapi } from "@elysiajs/openapi";
 import { Elysia, InferContext } from "elysia";
+import { cors } from "@elysiajs/cors";
 
 const openapiHandler = openapi({
   documentation: {
@@ -16,11 +17,12 @@ const openapiHandler = openapi({
 // Initialize the Elysia app
 const app = new Elysia()
   .use(openapiHandler)
+  .use(cors({ origin: "http://localhost:4321" }))
   .use(DBPlugin(db))
   .use(LogPlugin(logger))
   .mount(auth.handler)
   .use(healthRoutes);
-// .use(waitlistRoutes) // causes circular type annotation issue
+// .use(waitlistRoutes) // FIXME: causes circular type annotation issue
 
 type App = typeof app;
 type AppContext = InferContext<App>;
