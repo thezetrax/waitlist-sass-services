@@ -1,36 +1,29 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldSeparator,
-} from "@/components/ui/field";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSeparator } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { signup, type AuthCredentials } from "@/lib/api";
 
-export function SignupForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+export function SignupForm({ className, ...props }: React.ComponentProps<"div">) {
+  const { register, handleSubmit } = useForm<AuthCredentials>();
+
+  const onSubmit: SubmitHandler<AuthCredentials> = (credentials) => {
+    signup(credentials);
+  };
+
+  // @ts-ignore
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Sign Up</CardTitle>
-          <CardDescription>
-            Sign up with your Apple or Google account
-          </CardDescription>
+          <CardDescription>Sign up with your Apple or Google account</CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <FieldGroup>
               <Field>
                 <Button variant="outline" type="button">
@@ -57,38 +50,26 @@ export function SignupForm({
               </FieldSeparator>
               <Field>
                 <FieldLabel htmlFor="fullname">Full Name</FieldLabel>
-                <Input
-                  id="fullname"
-                  type="text"
-                  placeholder="John Doe"
-                  required
-                />
+                <Input id="fullname" type="text" placeholder="John Doe" required {...register("name")} />
               </Field>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
-                />
+                <Input id="email" type="email" placeholder="m@example.com" required {...register("email")} />
               </Field>
+              {/* TODO: show/hide password input */}
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-4 hover:underline hidden"
-                  >
+                  <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline hidden">
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" required {...register("password")} />
               </Field>
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit">Submit</Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
+                  Don&apos;t have an account? <a href="/auth/login">Login</a>
                 </FieldDescription>
               </Field>
             </FieldGroup>
@@ -96,8 +77,7 @@ export function SignupForm({
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
       </FieldDescription>
     </div>
   );

@@ -11,6 +11,7 @@
   "dependencies": {
     "@elysiajs/eden": "^1.4.8",
     "@qeberodev/api": "workspace:*",
+    "better-auth": "catalog:",
     "elysia": "catalog:"
   }
 }

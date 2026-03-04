@@ -1,0 +1,13 @@
+---
+import MainLayout from "@/layouts/main.astro";
+---
+
+<MainLayout>
+  <h1>Protected Route</h1>
+  <a href="/waitlist">Goto Waitlist</a>
+
+  <script>
+    import { protectRoute } from "@/lib/route";
+    protectRoute();
+  </script>
+</MainLayout>

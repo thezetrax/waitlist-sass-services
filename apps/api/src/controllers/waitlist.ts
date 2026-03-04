@@ -8,45 +8,29 @@
 //    - push notification
 //    - slack/telegram
 
-import {
-  tables,
-  CreateWaitlist,
-  SelectWaitlist,
-  UpdateWaitlist,
-} from "@qeberodev/schema";
+import { tables, CreateWaitlist, SelectWaitlist, UpdateWaitlist } from "@qeberodev/schema";
 import { and, eq, isNull } from "drizzle-orm";
-import { AppContext } from "..";
+import { AppContext } from "@/server";
 import { User } from "better-auth/*";
 
 type Dependencies = Pick<AppContext, "log" | "db">;
 
 // todo pagination
 const fetchAllWaitlistEntries = async ({ db }: Dependencies) =>
-  db
-    .select()
-    .from(tables.waitlist)
-    .where(isNull(tables.waitlist.deletedAt))
-    .all();
+  db.select().from(tables.waitlist).where(isNull(tables.waitlist.deletedAt)).all();
 
-const createWaitlistEntry = async (
-  { db }: Dependencies,
-  waitlist: CreateWaitlist,
-) => {
+const createWaitlistEntry = async ({ db }: Dependencies, waitlist: CreateWaitlist) => {
   const returned = await db
     .insert(tables.waitlist)
     .values({
       ...waitlist,
-      referralCode:
-        waitlist.referralCode || (await generateWaitlistReferralCode()),
+      referralCode: waitlist.referralCode || (await generateWaitlistReferralCode()),
     })
     .returning();
   return returned[0];
 };
 
-const fetchWaitlistEntry = async (
-  { db }: Dependencies,
-  id: SelectWaitlist["id"],
-) =>
+const fetchWaitlistEntry = async ({ db }: Dependencies, id: SelectWaitlist["id"]) =>
   (
     await db
       .select()
@@ -55,10 +39,7 @@ const fetchWaitlistEntry = async (
       .limit(1)
   )[0];
 
-const removeWaitlistEntry = async (
-  { db }: Dependencies,
-  id: SelectWaitlist["id"],
-) => {
+const removeWaitlistEntry = async ({ db }: Dependencies, id: SelectWaitlist["id"]) => {
   const returned = await db
     .update(tables.waitlist)
     .set({
@@ -94,8 +75,7 @@ const generateWaitlistReferralCode = async () => {
   // Convert the random index to a character
   // Join the characters into a string
   const generateRandomCode = (len: number): string => {
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const code = [...Array(len).keys()]
       .map(() => Math.floor(Math.random() * chars.length))
       .map((randIdx) => chars.charAt(randIdx))
@@ -113,12 +93,7 @@ const fetchUserWaitlistEntries = async ({ db }: Dependencies, user: User) => {
   const waitlists = await db
     .select()
     .from(tables.waitlist)
-    .where(
-      and(
-        eq(tables.waitlist.userId, Number(user.id)),
-        isNull(tables.waitlist.deletedAt),
-      ),
-    );
+    .where(and(eq(tables.waitlist.userId, Number(user.id)), isNull(tables.waitlist.deletedAt)));
 
   return waitlists;
 };

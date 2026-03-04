@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@qeberodev/api-treaty": "workspace:*",
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^5.17.1",
     "class-variance-authority": "^0.7.1",
@@ -17,6 +18,7 @@
     "radix-ui": "^1.4.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-hook-form": "^7.71.2",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.1"
   },

@@ -1,4 +1,4 @@
-import { App } from "..";
+import { App } from "@/server";
 import { fetchAllWaitlistEntries } from "@/controllers/waitlist";
 
 const waitlistRoutes = (server: App) =>
