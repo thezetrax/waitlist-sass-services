@@ -20,8 +20,8 @@ const app = new Elysia()
   .use(cors({ origin: "http://localhost:4321" }))
   .use(DBPlugin(db))
   .use(LogPlugin(logger))
-  .mount(auth.handler)
-  .use(healthRoutes);
+  .use(healthRoutes)
+  .mount("/auth", auth.handler);
 // .use(waitlistRoutes) // FIXME: causes circular type annotation issue
 
 type App = typeof app;

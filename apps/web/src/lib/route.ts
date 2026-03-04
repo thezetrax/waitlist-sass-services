@@ -1,3 +1,5 @@
+import { getSession } from "./api";
+
 const _authPaths = ["/auth/login", "/auth/signup"] as const;
 const paths = [..._authPaths] as const;
 
@@ -15,12 +17,11 @@ function goto(path: (typeof paths)[number] | (URLPathString & {})) {
   if (path !== getCurrentPath()) window.location.href = path;
 }
 
-function protectRoute() {
+// Protect non-auth routes by redirecting to login if no session exists
+async function protectRoute() {
   if (!isAuthPath(getCurrentPath())) {
-    // TODO: Implement authentication logic here
-    // For example, check if user is logged in
-
-    goto("/auth/login");
+    const session = await getSession();
+    if (!session) goto("/auth/login");
   }
 }
 

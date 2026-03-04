@@ -6,6 +6,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { openAPI } from "better-auth/plugins";
 
 const auth = betterAuth({
+  trustedOrigins: ["http://localhost:4321"],
   basePath: "/api",
   plugins: [openAPI()],
   emailAndPassword: {
