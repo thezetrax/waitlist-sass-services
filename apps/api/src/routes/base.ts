@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { logger } from "@/lib/logger";
-import { pipe } from "effect/Function";
+import { pipe } from "effect";
 import Elysia from "elysia";
 
 /**
