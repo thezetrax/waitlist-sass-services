@@ -6,10 +6,11 @@ import Elysia from "elysia";
 /**
  * Base Elysia router with db and log decorators
  */
-const base = pipe(
-  new Elysia(),
-  (app) => app.decorate("db", db),
-  (app) => app.decorate("log", logger),
-);
+const createBaseRouter = () =>
+  pipe(
+    new Elysia(),
+    (app) => app.decorate("log", logger),
+    (app) => app.decorate("db", db),
+  );
 
-export { base };
+export { createBaseRouter };

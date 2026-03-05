@@ -8,10 +8,6 @@ async function getSession() {
     return null;
   }
 
-  console.log({
-    session,
-  });
-
   return session;
 }
 

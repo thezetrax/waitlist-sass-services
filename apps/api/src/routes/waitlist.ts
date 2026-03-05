@@ -1,10 +1,17 @@
-import { fetchAllWaitlistEntries } from "@/controllers/waitlist";
+import {
+  fetchAllWaitlistEntries,
+  fetchWaitlistEntry,
+} from "@/controllers/waitlist";
 import { pipe } from "effect";
-import { base } from "./base";
+import { createBaseRouter } from "./base";
 
 /** Router */
-const rr = pipe(base);
+const rr = pipe(createBaseRouter());
 
-const waitlistRoutes = rr.get("/", fetchAllWaitlistEntries);
+const waitlistRoutes = rr
+  .get("/", fetchAllWaitlistEntries)
+  .get("/:id", ({ params: { id }, ...rest }) => {
+    return fetchWaitlistEntry(rest, Number(id));
+  });
 
 export { waitlistRoutes };
