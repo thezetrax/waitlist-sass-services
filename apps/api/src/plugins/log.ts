@@ -1,6 +1,6 @@
 import Elysia from "elysia";
 import { LogLayer } from "loglayer";
 
-const LogPlugin = (logger: LogLayer) => new Elysia().decorate("log", logger);
+const LogPlugin = (logger: LogLayer, server: Elysia = new Elysia()) => server.decorate("log", logger);
 
 export { LogPlugin };

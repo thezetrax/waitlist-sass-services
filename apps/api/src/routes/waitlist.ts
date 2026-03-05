@@ -1,9 +1,10 @@
-import { App } from "@/server";
 import { fetchAllWaitlistEntries } from "@/controllers/waitlist";
+import { pipe } from "effect";
+import { base } from "./base";
 
-const waitlistRoutes = (server: App) =>
-  server.group("/waitlist", (app) => {
-    return app.get("/", fetchAllWaitlistEntries);
-  });
+const rr = pipe(base);
+
+/** Router */
+const waitlistRoutes = rr.get("/", fetchAllWaitlistEntries);
 
 export { waitlistRoutes };

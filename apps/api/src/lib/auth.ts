@@ -4,9 +4,10 @@ import { tables } from "@qeberodev/schema";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { openAPI } from "better-auth/plugins";
+import { env } from "./env";
 
 const auth = betterAuth({
-  trustedOrigins: ["http://localhost:4321"],
+  trustedOrigins: env.ALLOWED_HOSTS,
   basePath: "/api",
   plugins: [openAPI()],
   emailAndPassword: {
