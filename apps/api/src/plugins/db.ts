@@ -1,5 +1,5 @@
 import type { DBInstance } from "@/db";
-import Elysia from "elysia";
+import { Elysia, Context } from "elysia";
 
 const DBPlugin = (client: DBInstance) => new Elysia().decorate("db", client);
 

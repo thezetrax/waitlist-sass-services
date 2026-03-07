@@ -2,12 +2,19 @@
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist"],
+  "references": [
+    {
+      "path": "../../packages/api-treaty",
+    },
+  ],
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
+    "composite": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "@qeberodev/api-treaty": ["../../packages/api-treaty/src"],
     },
   },
 }

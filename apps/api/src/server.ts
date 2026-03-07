@@ -1,11 +1,12 @@
-import { db } from "@/db";
+import { db, DBInstance } from "@/db";
 import { auth, AuthOpenAPI } from "@/lib/auth";
-import { logger } from "@/lib/logger";
+import { logger, LoggerInstance } from "@/lib/logger";
 import { DBPlugin, LogPlugin } from "@/plugins";
-import { healthRoutes } from "@/routes";
+import { healthRoutes, waitlistRoutes } from "@/routes";
 import { openapi } from "@elysiajs/openapi";
-import { Elysia, InferContext } from "elysia";
+import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
+import { env } from "@/lib/env";
 
 const openapiHandler = openapi({
   documentation: {
@@ -17,15 +18,18 @@ const openapiHandler = openapi({
 // Initialize the Elysia app
 const app = new Elysia()
   .use(openapiHandler)
-  .use(cors({ origin: "http://localhost:4321" }))
+  .use(cors({ origin: env.ALLOWED_HOSTS }))
   .use(DBPlugin(db))
   .use(LogPlugin(logger))
   .use(healthRoutes)
+  .use(waitlistRoutes)
   .mount("/auth", auth.handler);
-// .use(waitlistRoutes) // FIXME: causes circular type annotation issue
 
 type App = typeof app;
-type AppContext = InferContext<App>;
+type AppContext = {
+  db: DBInstance;
+  log: LoggerInstance;
+};
 
 export type { App, AppContext };
 export { app };

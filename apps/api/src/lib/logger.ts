@@ -6,4 +6,6 @@ const logger = new LogLayer({
   }),
 });
 
-export { logger };
+type LoggerInstance = typeof logger;
+
+export { logger, type LoggerInstance };

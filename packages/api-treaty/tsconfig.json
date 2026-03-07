@@ -10,9 +10,13 @@
 
     // Bundler mode
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    // INFO: disabled these for enabling import typings on my web app
+    // package :(
+    // "allowImportingTsExtensions": true,
+    // "noEmit": true,
     "verbatimModuleSyntax": true,
-    "noEmit": true,
+    "declaration": true,
+    "declarationMap": true,
 
     // Best practices
     "strict": true,
@@ -25,5 +29,17 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false,
+
+    "composite": true,
+    // @ts-ignore this is required for path mapping
+    "baseUrl": ".",
+    "paths": {
+      "@qeberodev/api": ["../../apps/api/src"],
+    },
   },
+  "references": [
+    {
+      "path": "../../apps/api",
+    },
+  ],
 }
