@@ -1,7 +1,6 @@
 {
   "name": "@qeberodev/api",
-  "types": "./dist/src/index.d.ts",
-  "main": "./dist/index.js",
+  "main": "./src/index.ts",
   "type": "module",
   "version": "1.0.50",
   "scripts": {
@@ -19,6 +18,7 @@
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",
+    "@elysiajs/eden": "^1.4.8",
     "@elysiajs/openapi": "^1.4.14",
     "@loglayer/transport-simple-pretty-terminal": "^3.0.2",
     "@qeberodev/schema": "workspace:*",
@@ -37,7 +37,8 @@
     "@types/better-sqlite3": "^7.6.13",
     "bun-types": "latest",
     "concurrently": "catalog:",
-    "drizzle-kit": "^0.31.9"
+    "drizzle-kit": "^0.31.9",
+    "typescript": "^5.9.3"
   },
   "trustedDependencies": [
     "@orangeopensource/hurl",

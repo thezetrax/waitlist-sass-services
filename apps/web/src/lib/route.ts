@@ -1,10 +1,12 @@
 import { getSession } from "./api";
 
 const _authPaths = ["/auth/login", "/auth/signup"] as const;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const paths = [..._authPaths] as const;
 
 function isAuthPath(path: string) {
-  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore TypeScript doesn't understand that _authPaths is a tuple of string literals
   return _authPaths.includes(path);
 }
 

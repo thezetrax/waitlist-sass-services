@@ -1,4 +1,4 @@
-import { api, authClient } from "@qeberodev/api-treaty";
+import { authClient } from "@qeberodev/api-treaty";
 
 // Get current user session
 async function getSession() {
@@ -42,5 +42,5 @@ async function signin({ email, password }: SigninCredentials) {
   return user;
 }
 
-export { getSession, api, signup, signin };
+export { getSession, signup, signin };
 export type { AuthCredentials, SigninCredentials };

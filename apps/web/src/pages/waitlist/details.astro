@@ -5,10 +5,18 @@ export const prerender = false;
 const id = Astro.url.searchParams.get("id");
 
 if (!id) {
-    return Astro.rewrite("/404");
+  return Astro.rewrite("/404");
 }
 ---
 
 <MainLayout>
-    <h1>Waitlist Details id - {id}</h1>
+  <h1>Waitlist Details id - {id}</h1>
+
+  <script>
+    import { getWaitlistDetails } from "@/lib/api";
+
+    const id = new URL(window.location.href).searchParams.get("id");
+
+    id && getWaitlistDetails(id);
+  </script>
 </MainLayout>
